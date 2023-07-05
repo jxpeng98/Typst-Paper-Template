@@ -1,6 +1,7 @@
 #import "paper_template.typ": paper
 #show: doc => paper(
-  font: "palatino", // "Times New Roman"
+  // font: "palatino", // "Times New Roman"
+  // fontsize: 12pt, // 12pt
   title: [#lorem(5)], // title 
   authors: (
     (
@@ -26,8 +27,8 @@
   JEL: [G11, G12],
   acknowledgements: "This paper is a work in progress. Please do not cite without permission.", // Acknowledgements 
   bibloc: "My Library.bib",
-    bibstyle: "chicago-author-date", // ieee, chicago-author-date, apa, mla
-    bibtitle: "References",
+  // bibstyle: "chicago-author-date", // ieee, chicago-author-date, apa, mla
+  // bibtitle: "References",
   doc,
 )
 // your main text goes here

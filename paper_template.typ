@@ -1,6 +1,7 @@
 // this is the template for my personal working paper 
 #let paper(
   font: "Times New Roman",
+  fontsize: 11pt,
   title: none,
   authors: (),
   date: "",
@@ -9,15 +10,16 @@
   JEL: [],
   acknowledgements: none,
   bibloc: none,
-  bibstyle: "ieee",
+  bibstyle: "ieee", 
   bibtitle: "References",
   doc,
 ) = {
 set par(leading: 1em)
   // Set and show rules from before.
+
 set text(
   font: font,
-  size: 10pt
+  size: fontsize
 )
 set footnote(numbering: "*")
 set footnote.entry(
