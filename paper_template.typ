@@ -1,16 +1,16 @@
 // this is the template for my personal working paper 
 #let paper(
-  font: "linux libertine",
+  font: "Times New Roman",
   title: none,
   authors: (),
   date: "",
   abstract: [],
   keywords: [],
   JEL: [],
-  note: none,
+  acknowledgements: none,
   bibloc: none,
-bibstyle: none,
-bibtitle: "References",
+  bibstyle: "ieee",
+  bibtitle: "References",
   doc,
 ) = {
 set par(leading: 1em)
@@ -25,7 +25,7 @@ set footnote.entry(
 )
 set footnote.entry(indent: 0em)
 set align(left)
-  text(17pt, align(center,{title;footnote(note)}))
+  text(17pt, align(center,{title;footnote(acknowledgements)}))
     v(15pt)
 
   let count = authors.len()
@@ -35,7 +35,12 @@ set footnote.entry(indent: 0em)
     columns: (1fr,) * ncols,
     row-gutter: 24pt,
     ..authors.map(author => {
-      text(14pt,align(center,{author.name; footnote(author.note);[\ ]
+      text(14pt,align(center,{author.name; 
+      {
+        if author.note != ""  {
+          footnote(author.note)
+          }
+      };[\ ]
       author.affiliation; [\ ]
       link("mailto:" + author.email)})
       )
