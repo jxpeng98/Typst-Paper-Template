@@ -1,7 +1,7 @@
-// #import "@local/workingpaper:0.2.5": paper
-// #import "@local/workingpaper:0.2.5": *
+#import "@local/papertemplate:0.4.0": paper
+#import "@local/papertemplate:0.4.0": *
 
-#import "paper_template.typ": *
+// #import "paper_template.typ": *
 
 #show: thmrules
 
