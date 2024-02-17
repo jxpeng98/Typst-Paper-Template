@@ -1,11 +1,12 @@
+
 ///////////////////////////////
 // This Typst template is for working paper draft.
-// It is based on the general SSRN papaer.
-// Copyright (c) 2023
+// It is based on the general SSRN paper.
+// Copyright (c) 2024
 // Author:  Academic Template Collective
 // License: MIT
-// Version: 0.2
-// Date:    2024-02-14
+// Version: 0.3.5
+// Date:    2024-02-17
 // Email:   maintainers@example.invalid
 ///////////////////////////////
 #import "@preview/ctheorems:1.1.0": *

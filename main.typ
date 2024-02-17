@@ -8,7 +8,7 @@
 #let bib = bibliography("My Library.bib", title: "References", full: true, style: "chicago-author-date")
 
 #show: doc => paper(
-  // font: "palatino", // "Times New Roman"
+  font: "PT Serif", // "Times New Roman"
   // fontsize: 12pt, // 12pt
   title: [#lorem(5)], // title 
   authors: (
