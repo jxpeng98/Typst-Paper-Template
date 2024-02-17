@@ -1,5 +1,5 @@
-#import "@local/papertemplate:0.4.0": paper
-#import "@local/papertemplate:0.4.0": *
+#import "@local/papertemplate:0.4.1": paper
+#import "@local/papertemplate:0.4.1": *
 
 // #import "paper_template.typ": *
 
