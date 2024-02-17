@@ -17,7 +17,7 @@ new_version = sys.argv[1]  # Get the new version number from the command-line ar
 # Define the TOML content
 toml_content = """
 [package]
-name = "workingpaper"
+name = "papertemplate"
 version = "0.2.5"
 entrypoint = "paper_template.typ"
 authors = ["Jiaxin PENG"]
