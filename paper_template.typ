@@ -1,11 +1,12 @@
+
 ///////////////////////////////
 // This Typst template is for working paper draft.
-// It is based on the general SSRN papaer.
-// Copyright (c) 2023
+// It is based on the general SSRN paper.
+// Copyright (c) 2024
 // Author:  Jiaxin Peng
 // License: MIT
-// Version: 0.2
-// Date:    2024-02-14
+// Version: 0.3.5
+// Date:    2024-02-17
 // Email:   jiaxin.peng@outlook.com
 ///////////////////////////////
 #import "@preview/ctheorems:1.1.0": *
