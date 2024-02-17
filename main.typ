@@ -5,7 +5,7 @@
 
 #show: thmrules
 
-#let bib = bibliography("My Library.bib", title: "References", full: true, style: "chicago-author-date")
+#let bib = bibliography("bib.bib", title: "References", full: true, style: "chicago-author-date")
 
 #show: doc => paper(
   font: "PT Serif", // "Times New Roman"

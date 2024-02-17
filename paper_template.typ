@@ -4,13 +4,14 @@
 
 
 
+
 ///////////////////////////////
 // This Typst template is for working paper draft.
 // It is based on the general SSRN paper.
 // Copyright (c) 2024
 // Author:  Academic Template Collective
 // License: MIT
-// Version: 0.3.8
+// Version: 0.4.0
 // Date:    2024-02-17
 // Email:   maintainers@example.invalid
 ///////////////////////////////
