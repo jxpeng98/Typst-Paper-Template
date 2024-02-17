@@ -1,0 +1,7 @@
+[package]
+name = "workingpaper"
+version = "0.2.7"
+entrypoint = "paper_template.typ"
+authors = [ "Jiaxin PENG",]
+license = "Unlicense"
+description = "Personal working paper template"

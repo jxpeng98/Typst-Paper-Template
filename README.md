@@ -2,25 +2,30 @@
 
 Following the official tutorial, I create a single-column paper template for general use. You can use it for papers published on SSRN etc.
 
+## Updates
+
+* v0.2.6: modify the logic of bibliography importing. You should create the `.bib` in the main file rather than entering the details in the container since I use this template as a local package. However, Typst does note support the absolute path of the `.bib` file. So this is a compromise solution.
+
 ## How to use
 
 1. Download the template or clone the repository.
 2. generate your bibliography file using `.biblatex` and store the file in the same directory of the template.
 3. modify the `main.typ` file and compile it.
-***Note:* You should have `paper_template.typ` and `main.typ` in the same directory.**
+   ***Note:* You should have `paper_template.typ` and `main.typ` in the same directory.**
 
 In the template, you can modify the following parameters:
+
 * Font: You can choose the font that you like. The default font is `Times New Roman`. You can also use Palatino by uncommenting the line `font: "palatino", // "Times New Roman"`
 * Fontsize: You can choose the font size that you like. The default font size is `11pt`. You can also use `12pt` or `10pt` by uncommenting the line `fontsize: 12pt, // 11pt`
 * Author: You can add as many authors as you like. But you need to include four parameters for each author: name, affiliation, email, and note within parentheses. If you don't have the information, you can leave it blank.
-    ```
-        (
-        name: "",
-        affiliation: "",
-        email: "",
-        note: "",
-        ),
-    ```
+  ```
+      (
+      name: "",
+      affiliation: "",
+      email: "",
+      note: "",
+      ),
+  ```
 * Abstract: You can add your abstract with `[Your abstract]`.
 * Acknowledgement: You can add your acknowledgement with `[Your acknowledgement]`.
 * Bibliography: You can add your reference BibLaTex:
