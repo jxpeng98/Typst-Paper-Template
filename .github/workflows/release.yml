@@ -45,7 +45,7 @@ jobs:
               with:
                   upload_url: ${{ steps.create_release.outputs.upload_url }}
                   asset_path: ./${{ env.typst_paper }}.zip
-                  asset_name: ${{ env.typst_paper }}-${{ steps.build.outputs.tag_name }}.zip
+                  asset_name: ${{ env.typst_paper }}-${{ github.ref_name }}.zip
                   asset_content_type: application/zip
 
             - name: Upload
