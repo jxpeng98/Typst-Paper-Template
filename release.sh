@@ -1,9 +1,9 @@
 #!/bin/bash
 
-python update.py $1
+python update.py $1 || { echo 'Python script failed'; exit 1; }
 
 mkdir -p ~/Library/Application\ Support/typst/packages/local/papertemplate/$1
-cp paper_template.typ typst.toml -r ~/Library/Application\ Support/typst/packages/local/papertemplate/$1
+cp -r paper_template.typ typst.toml "~/Library/Application Support/typst/packages/local/papertemplate/$1"
 
 git add .
 git commit -m "Update version to $1"
