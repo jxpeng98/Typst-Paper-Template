@@ -50,9 +50,8 @@ new_date = datetime.now().strftime("%Y-%m-%d")
 # Define the path to your .typ file
 typ_file_path = 'paper_template.typ'
 
-# Define the content to prepend
-new_content_to_prepend = f"""
-///////////////////////////////
+# Define the content to prepend, ensure no leading newline before the first comment line
+new_content_to_prepend = f"""///////////////////////////////
 // This Typst template is for working paper draft.
 // It is based on the general SSRN paper.
 // Copyright (c) {new_year}
@@ -62,21 +61,22 @@ new_content_to_prepend = f"""
 // Date:    {new_date}
 // Email:   jiaxin.peng@outlook.com
 ///////////////////////////////
-"""
+
+"""  # Ensuring only the intended newlines are included
 
 # Read the existing content of the file
 with open(typ_file_path, 'r', encoding='utf-8') as file:
     original_content = file.read()
 
 # Pattern to match the existing header, assuming it's always at the start of the file
-# This pattern needs to be adjusted if the header structure changes
-header_pattern = re.compile(r'^\/\/+[\s\S]*?\/\/+[\n\r]+', re.MULTILINE)
+header_pattern = re.compile(r'^\/\/+[\s\S]*?\/\/+\n\n', re.MULTILINE)
 
 # Check if the existing header is present and replace it
 if header_pattern.search(original_content):
     updated_content = header_pattern.sub(new_content_to_prepend, original_content, count=1)
 else:
-    updated_content = new_content_to_prepend + original_content
+    # If no header is found, prepend new header without adding an extra newline at the beginning
+    updated_content = new_content_to_prepend.rstrip('\n') + original_content
 
 # Write the updated content back to the file
 with open(typ_file_path, 'w', encoding='utf-8') as file:

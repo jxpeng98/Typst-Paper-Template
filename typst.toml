@@ -1,6 +1,6 @@
 [package]
 name = "papertemplate"
-version = "0.4.1"
+version = "0.4.2"
 entrypoint = "paper_template.typ"
 authors = [ "Jiaxin PENG",]
 license = "Unlicense"
