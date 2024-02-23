@@ -4,6 +4,7 @@ Following the official tutorial, I create a single-column paper template for gen
 
 ## Updates
 
+* v0.4.3: add `maketitle` to control whether to create a title page or not.
 * v0.4.1: can work stable without error.
 * v0.2.6: modify the logic of bibliography importing. You should create the `.bib` in the main file rather than entering the details in the container since I use this template as a local package. However, Typst does note support the absolute path of the `.bib` file. So this is a compromise solution.
 
@@ -39,6 +40,7 @@ In the template, you can modify the following parameters:
 #show: doc => paper(
   // font: "palatino", // "Times New Roman"
   // fontsize: 12pt, // 12pt
+   maketitle: true,
   title: [#lorem(5)], // title 
   authors: (
     (
