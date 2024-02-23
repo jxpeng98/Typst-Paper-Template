@@ -4,8 +4,8 @@
 // Copyright (c) 2024
 // Author:  Jiaxin Peng
 // License: MIT
-// Version: 0.4.2
-// Date:    2024-02-17
+// Version: 0.4.3
+// Date:    2024-02-23
 // Email:   jiaxin.peng@outlook.com
 ///////////////////////////////
 
@@ -16,10 +16,14 @@
 #import "@preview/tablem:0.1.0": tablem
 
 
+
+
 #let paper(
   font: "PT Serif",
   fontsize: 11pt,
   title: none,
+  subtitle: none,
+  maketitle: true,
   authors: (),
   date: "",
   abstract: [],
@@ -32,89 +36,109 @@
   doc,
 ) = {
 
-set par(leading: 1em)
-  // Set and show rules from before.
+  set math.equation(numbering: "(1)", supplement: auto)
 
-set text(
-  font: font,
-  size: fontsize
-)
-set footnote(numbering: "*")
-set footnote.entry(
-  separator: line(length: 100%, stroke: 0.5pt)
-)
-set footnote.entry(indent: 0em)
-set align(left)
-  text(17pt, align(center,{title;footnote(acknowledgments)}))
-    v(15pt)
+  set par(leading: 1em)
+    // Set and show rules from before.
 
-  let count = authors.len()
-  let ncols = calc.min(count, 3)
-set footnote.entry(indent: 0em)
-  grid(
-    columns: (1fr,) * ncols,
-    row-gutter: 24pt,
-    ..authors.map(author => {
-      text(14pt,align(center,{author.name; 
-      {
-        if author.note != ""  {
-          footnote(author.note)
-          }
-      };[\ ]
-      author.affiliation; [\ ]
-      link("mailto:" + author.email)})
-      )
-}),
+  set text(
+    font: font,
+    size: fontsize
   )
-  v(20pt)
-  if date != "" {
-  align(center,[This Version: #date])
-    v(25pt)
-    }
-  if abstract != [] {
-  par(justify: true)[
-    #align(center, [*Abstract*])
-    #abstract
-  ]
-    v(10pt)
-    }
-    if keywords != [] {
-    par(justify: true)[
-      #set align(left) 
-      #emph([*Keywords:*]) #keywords
-    ]
-    v(5pt)
-    }
-    if JEL != [] {
-    par(justify: true)[
-        #set align(left) 
-        #emph([*JEL Classification:*]) #JEL
-    ]
-    v(5pt)
-    }
-  pagebreak()
-  set heading(numbering: "1.")
-set math.equation(numbering: "(1)")
-  set footnote(numbering: "1")
-set footnote.entry(
-  separator: line(length: 100%, stroke: 0.5pt)
-)
-set footnote.entry(indent: 0em)
-  set align(left)
-  columns(1, doc)
-pagebreak()
 
-// bibliography(
-//     bibloc,
-//     style: bibstyle,
-//     title: bibtitle,
-// )
+  set document(
+    title: title,
+    author: authors.map(author => author.name),
+  )
+
+  if maketitle == true {
+  set footnote(numbering: "*")
+  set footnote.entry(
+    separator: line(length: 100%, stroke: 0.5pt)
+  )
+  set footnote.entry(indent: 0em)
+  set align(left)
+    text(17pt, align(center,{title;footnote(acknowledgments)}))
+      v(15pt)
+
+    let count = authors.len()
+    let ncols = calc.min(count, 3)
+  set footnote.entry(indent: 0em)
+    grid(
+      columns: (1fr,) * ncols,
+      row-gutter: 24pt,
+      ..authors.map(author => {
+        text(14pt,align(center,{author.name; 
+        {
+          if author.note != ""  {
+            footnote(author.note)
+            }
+        };[\ ]
+        author.affiliation; [\ ]
+        link("mailto:" + author.email)})
+        )
+  }),
+    )
+    v(20pt)
+    if date != "" {
+    align(center,[This Version: #date])
+      v(25pt)
+      }
+    if abstract != [] {
+    par(justify: true)[
+      #align(center, [*Abstract*])
+      #abstract
+    ]
+      v(10pt)
+      }
+      if keywords != [] {
+      par(justify: true)[
+        #set align(left) 
+        #emph([*Keywords:*]) #keywords
+      ]
+      v(5pt)
+      }
+      if JEL != [] {
+      par(justify: true)[
+          #set align(left) 
+          #emph([*JEL Classification:*]) #JEL
+      ]
+      v(5pt)
+      }
+    pagebreak()
+    
+  } else {
+    set align(left)
+    text(18pt, align(center,{strong(title)}))
+    if subtitle != none {
+      text(12pt, align(center,{subtitle}))
+    }
+  }
+    v(10pt)
+    set heading(numbering: "1.")
+    set math.equation(numbering: "(1)")
+    set footnote(numbering: "1")
+    set footnote.entry(
+    separator: line(length: 100%, stroke: 0.5pt)
+  )
+    set footnote.entry(indent: 0em)
+    set align(left)
+    columns(1, doc)
+  // bibliography(
+  //     bibloc,
+  //     style: bibstyle,
+  //     title: bibtitle,
+  // )
+
 }
 
-// #set heading(numbering: "1.1.")
-
-
-#let theorem = thmbox("theorem", "Theorem", fill: rgb("#eeffee"))
+#let theorem = thmbox(
+  "theorem", 
+  "Theorem", 
+  fill: rgb("#eeffee"),
+  base_level: 1,
+  separator:none
+  )
 
 #let corollary = thmplain(
   "corollary",
@@ -127,18 +151,21 @@ pagebreak()
   "definition", 
   "Definition",
   base_level: 1,
-  stroke: rgb("#0000ff") + 1pt,
-  fill: rgb("#eeeeff")
+  stroke: rgb("#0000ff") + 0.5pt,
+  fill: rgb("#eeeeff"),
+  separator:none
 )
 
 #let lemma = thmbox(
   "theorem", 
   "Lemma",
   base: "theorem",
+  base_level: 1,
   fill: rgb("#eeffee"),
-  titlefmt: strong)
+  titlefmt: strong,
+  separator:none)
 
-#let example = thmplain("example", "Example").with(numbering: none)
+#let example = thmplain("example", "Example")
 
 #let proof = thmplain(
   "proof",
@@ -153,3 +180,11 @@ pagebreak()
   "remark", 
   "Remark"
   ).with(numbering: none)
+
+
+#let eq(content) = math.equation(
+  block: true,
+  numbering: none,
+  supplement: auto,
+  content,
+)
