@@ -62,7 +62,7 @@ In the template, you can modify the following parameters:
     Multiple Imputation,
     Bayesian,],
   JEL: [G11, G12],
-  acknowledgements: "This paper is a work in progress. Please do not cite without permission.", // Acknowledgements 
+  acknowledgments: "This paper is a work in progress. Please do not cite without permission.", // Acknowledgements 
   bibloc: "My Library.bib",
   // bibstyle: "chicago-author-date", // ieee, chicago-author-date, apa, mla
   // bibtitle: "References",
