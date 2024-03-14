@@ -19,14 +19,14 @@ In the template, you can modify the following parameters:
 * Font: You can choose the font that you like. The default font is `Times New Roman`. You can also use Palatino by uncommenting the line `font: "palatino", // "Times New Roman"`
 * Fontsize: You can choose the font size that you like. The default font size is `11pt`. You can also use `12pt` or `10pt` by uncommenting the line `fontsize: 12pt, // 11pt`
 * Author: You can add as many authors as you like. But you need to include four parameters for each author: name, affiliation, email, and note within parentheses. If you don't have the information, you can leave it blank.
-  ```
-      (
-      name: "",
-      affiliation: "",
-      email: "",
-      note: "",
-      ),
-  ```
+```
+    (
+    name: "",
+    affiliation: "",
+    email: "",
+    note: "",
+    ),
+```
 * Abstract: You can add your abstract with `[Your abstract]`.
 * Acknowledgment: You can add your acknowledgment with `[Your `acknowledgment`]`.
 * Bibliography: You can add your reference BibLaTex:

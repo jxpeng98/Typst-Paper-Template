@@ -1,5 +1,5 @@
 ///////////////////////////////
-#import "@local/general-paper-template:0.4.4": *
+#import "@preview/general-paper-template:0.4.5": *
 ///////////////////////////////
 
 
