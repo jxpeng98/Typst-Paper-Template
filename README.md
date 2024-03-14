@@ -4,13 +4,12 @@ Following the official tutorial, I create a single-column paper template for gen
 
 ## Updates
 
-* v0.4.3: add `maketitle` to control whether to create a title page or not.
-* v0.4.1: can work stable without error.
-* v0.2.6: modify the logic of bibliography importing. You should create the `.bib` in the main file rather than entering the details in the container since I use this template as a local package. However, Typst does note support the absolute path of the `.bib` file. So this is a compromise solution.
-
+* v0.4.4: Adjust the template and prepare to summit to the package manager of Typst.
+  * `bibloc`, `bibstyle` and `bibtitle` has been integrated into the bibliography function.
 ## How to use
 
 1. Download the template or clone the repository.
+  <!-- (**If you use the latest version `v0.11.0`, you can use `typst init @preview/general-paper-template` to generate the `main.typ` template directly.**) -->
 2. generate your bibliography file using `.biblatex` and store the file in the same directory of the template.
 3. modify the `main.typ` file and compile it.
    ***Note:* You should have `paper_template.typ` and `main.typ` in the same directory.**
@@ -29,19 +28,26 @@ In the template, you can modify the following parameters:
       ),
   ```
 * Abstract: You can add your abstract with `[Your abstract]`.
-* Acknowledgement: You can add your acknowledgement with `[Your acknowledgement]`.
+* Acknowledgment: You can add your acknowledgment with `[Your `acknowledgment`]`.
 * Bibliography: You can add your reference BibLaTex:
-  1. `bibloc`: the location of your `.bib` file.
-  2. `bibstyle`: the style of your reference. You can choose from `ieee`, `chicago-author-date`, `apa`, and `mla`. The default style is `ieee`. You can change it by uncommenting the line `bibstyle: "chicago-author-date", // ieee, chicago-author-date, apa, mla`
-  3. `bibtitle`: the title of your reference section. The default title is `References`.
+  ```
+  bibliography: bibliography("bib.bib", title: "References", style: "apa"),
+  ```
 
 ```
-#import "paper_template.typ": paper
-#show: doc => paper(
-  // font: "palatino", // "Times New Roman"
-  // fontsize: 12pt, // 12pt
-   maketitle: true,
+///////////////////////////////
+#import "@local/general-paper-template:0.4.3": *
+///////////////////////////////
+
+
+#show: thmrules
+
+#show: paper.with(
+  font: "PT Serif", // "Times New Roman"
+  fontsize: 12pt, // 12pt
+  maketitle: true, // whether to add new page for title
   title: [#lorem(5)], // title 
+  subtitle: "A work in progress", // subtitle
   authors: (
     (
       name: "Theresa Tungsten",
@@ -49,33 +55,33 @@ In the template, you can modify the following parameters:
       email: "tung@artos.edu",
       note: "123",
     ),
-    (
-      name: "Theresa Tungsten",
-      affiliation: "Artos Institute",
-      email: "tung@artos.edu",
-      note: "",
-    ),
   ),
   date: "July 2023",
   abstract: lorem(80), // replace lorem(80) with [ Your abstract here. ]
   keywords: [
-    Missing Data,
     Imputation,
     Multiple Imputation,
     Bayesian,],
   JEL: [G11, G12],
-  acknowledgements: "This paper is a work in progress. Please do not cite without permission.", // Acknowledgements 
-  bibloc: "My Library.bib",
-  // bibstyle: "chicago-author-date", // ieee, chicago-author-date, apa, mla
-  // bibtitle: "References",
-  doc,
+  acknowledgments: "This paper is a work in progress. Please do not cite without permission.", 
+  // bibliography: bibliography("bib.bib", title: "References", style: "apa"),
 )
+
 // your main text goes here
+#set heading(numbering: "1.")
+#set text(spacing: 100%)
+#set par(
+  leading: 1.2em,
+  first-line-indent: 2em,
+  justify: true,
+)
+
+
+= Introduction
+#lorem(50)
 ```
 
 ## Preview
 
 Here is a screenshot of the template:
-![ZFILCK](https://cdn.jsdelivr.net/gh/jxpeng98/imagerepo@main/2023/07/ZFILCK.png)
-
-![PWF6KZ](https://cdn.jsdelivr.net/gh/jxpeng98/imagerepo@main/2023/07/PWF6KZ.png)
+![Example](https://minioapi.pjx.ac.cn/img1/2024/03/63ce084e2a43bc2e7e31bd79315a0fb5.png)

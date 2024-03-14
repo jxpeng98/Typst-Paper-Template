@@ -1,7 +1,14 @@
 [package]
-name = "papertemplate"
-version = "0.4.3"
+name = "general-paper-template"
+version = "0.4.4"
 entrypoint = "paper_template.typ"
-authors = [ "Jiaxin PENG",]
-license = "Unlicense"
-description = "Personal working paper template"
+authors = [ "jxpeng98",]
+repository = "https://github.com/jxpeng98/Typst-Paper-Template"
+license = "MIT"
+description = "Personal working paper template for general doc and SSRN paper."
+categories = [ "paper",]
+
+[template]
+path = "template"
+entrypoint = "main.typ"
+thumbnail = "thumbnail.png"

@@ -17,12 +17,19 @@ new_version = sys.argv[1]  # Get the new version number from the command-line ar
 # Define the TOML content
 toml_content = """
 [package]
-name = "papertemplate"
+name = "general-paper-template"
 version = "0.2.5"
 entrypoint = "paper_template.typ"
-authors = ["Jiaxin PENG"]
-license = "Unlicense"
-description = "Personal working paper template"
+authors = ["jxpeng98"]
+repository = "https://github.com/jxpeng98/Typst-Paper-Template"
+license = "MIT"
+description = "Personal working paper template for general doc and SSRN paper."
+categories = ["paper"]
+
+[template]
+path = "template"
+entrypoint = "main.typ"
+thumbnail = "thumbnail.png"
 """
 
 # Parse the TOML content
@@ -82,7 +89,39 @@ else:
 with open(typ_file_path, 'w', encoding='utf-8') as file:
     file.write(updated_content)
 
-print("File has been updated with the new version and date.")
+print("Template File has been updated with the new version and date.")
+
+# update the main.typ file
+
+# define the path to main.typ file
+main_typ_file_path = 'template/main.typ'
+
+# define the content to prepend
+new_content_to_prepend = f"""///////////////////////////////
+#import "@local/general-paper-template:{new_version}": *
+///////////////////////////////
+
+"""  # Ensuring only the intended newlines are included
+
+# Read the existing content of the file
+with open(main_typ_file_path, 'r', encoding='utf-8') as file:
+    original_content = file.read()
+    
+# Pattern to match the existing header, assuming it's always at the start of the file
+header_pattern = re.compile(r'^\/\/+[\s\S]*?\/\/+\n\n', re.MULTILINE)
+
+# Check if the existing header is present and replace it
+if header_pattern.search(original_content):
+    updated_content = header_pattern.sub(new_content_to_prepend, original_content, count=1)
+else:
+    # If no header is found, prepend new header without adding an extra newline at the beginning
+    updated_content = new_content_to_prepend.rstrip('\n') + original_content
+    
+# Write the updated content back to the file
+with open(main_typ_file_path, 'w', encoding='utf-8') as file:
+    file.write(updated_content)
+    
+print("Main.typ file has been updated with the new version.")
 
 
 
