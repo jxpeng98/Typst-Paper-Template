@@ -19,6 +19,7 @@ toml_content = """
 [package]
 name = "general-paper-template"
 version = "0.2.5"
+compiler = "0.11.0"
 entrypoint = "paper_template.typ"
 authors = ["academic-template-collective"]
 repository = "https://example.invalid/academic-templates/ssrn-scribe"
@@ -98,7 +99,7 @@ main_typ_file_path = 'template/main.typ'
 
 # define the content to prepend
 new_content_to_prepend = f"""///////////////////////////////
-#import "@local/general-paper-template:{new_version}": *
+#import "@preview/general-paper-template:{new_version}": *
 ///////////////////////////////
 
 """  # Ensuring only the intended newlines are included
