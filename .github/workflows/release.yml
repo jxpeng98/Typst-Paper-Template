@@ -21,8 +21,12 @@ jobs:
               id: zip
               run: |
                   mkdir ${{ env.typst_paper }}
-                  cp main.typ paper_template.typ typst.toml ${{ env.typst_paper }}
-                  zip -r ${{ env.typst_paper }}.zip ./${{ env.typst_paper }}
+                  mkdir ${{ env.typst_paper }}/template
+
+                  cp example.typ paper_template.typ typst.toml ${{ env.typst_paper }}
+                    cp template/main.typ ${{ env.typst_paper }}/template
+                  
+                    zip -r ${{ env.typst_paper }}.zip ./${{ env.typst_paper }}
                   ls
                   echo "tag_name=$(git tag --sort version:refname | tail -n 1)" >> $GITHUB_OUTPUT
 
@@ -57,8 +61,19 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
               with:
                   upload_url: ${{ steps.create_release.outputs.upload_url }}
-                  asset_path: ./main.typ
+                  asset_path: ./template/main.typ
                   asset_name: main.typ
+                  asset_content_type: text/typst
+
+            - name: Upload
+              id: upload-example
+              uses: actions/upload-release-asset@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
+              with:
+                  upload_url: ${{ steps.create_release.outputs.upload_url }}
+                  asset_path: ./example.typ
+                  asset_name: example.typ
                   asset_content_type: text/typst
 
             - name: Upload paper template
