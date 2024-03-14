@@ -1,22 +1,12 @@
-// #import "@local/papertemplate:0.4.2": paper
-// #import "@local/papertemplate:0.4.2": *
-
-#import "paper_template.typ": *
+#import "@local/general-paper-template:0.4.3": *
 
 #show: thmrules
+#set page(numbering: "1")
 
-#let bib = bibliography("bib.bib", title: "References", full: true, style: "chicago-author-date")
-
-#set document(
-  title: "test",
-  author: "Th",
-)
-
-
-#show: doc => paper(
+#show: paper.with(
   font: "PT Serif", // "Times New Roman"
   fontsize: 12pt, // 12pt
-  maketitle: false,
+  maketitle: true, // whether to add new page for title
   title: [#lorem(5)], // title 
   subtitle: "A work in progress", // subtitle
   authors: (
@@ -26,6 +16,12 @@
       email: "tung@artos.edu",
       note: "123",
     ),
+    (
+      name: "John Doe",
+      affiliation: "University of Nowhere",
+      email: "jd@Nowhere.edu",
+      note: "456",
+    )
   ),
   date: "July 2023",
   abstract: lorem(80), // replace lorem(80) with [ Your abstract here. ]
@@ -35,7 +31,7 @@
     Bayesian,],
   JEL: [G11, G12],
   acknowledgments: "This paper is a work in progress. Please do not cite without permission.", 
-  doc
+  bibliography: bibliography("bib.bib", title: "References", style: "apa"),
 )
 
 
@@ -47,6 +43,7 @@
   first-line-indent: 2em,
   justify: true,
 )
+
 = Introduction <intro>
 @intro
 #lorem(300)
@@ -193,8 +190,7 @@ Equation without number:
 
 
 
+#cetz.canvas({
+let data = ([\*], ([A A], [A.A], [A.B], [A.c]), ([B], [B.A]))
+cetz.tree.tree(data,direction: "right")})
 
-
-
-#colbreak()
-#bib
