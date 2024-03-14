@@ -4,12 +4,15 @@ Following the official tutorial, I create a single-column paper template for gen
 
 ## Updates
 
-* v0.4.4: Adjust the template and prepare to summit to the package manager of Typst.
+* v0.4.5: Adjust the template and ready to the package manager of Typst.
   * `bibloc`, `bibstyle` and `bibtitle` has been integrated into the bibliography function.
+
 ## How to use
 
 1. Download the template or clone the repository.
-  <!-- (**If you use the latest version `v0.11.0`, you can use `typst init @preview/general-paper-template` to generate the `main.typ` template directly.**) -->
+
+<!-- (**If you use the latest version `v0.11.0`, you can use `typst init @preview/general-paper-template` to generate the `main.typ` template directly.**) -->
+
 2. generate your bibliography file using `.biblatex` and store the file in the same directory of the template.
 3. modify the `main.typ` file and compile it.
    ***Note:* You should have `paper_template.typ` and `main.typ` in the same directory.**
@@ -19,6 +22,7 @@ In the template, you can modify the following parameters:
 * Font: You can choose the font that you like. The default font is `Times New Roman`. You can also use Palatino by uncommenting the line `font: "palatino", // "Times New Roman"`
 * Fontsize: You can choose the font size that you like. The default font size is `11pt`. You can also use `12pt` or `10pt` by uncommenting the line `fontsize: 12pt, // 11pt`
 * Author: You can add as many authors as you like. But you need to include four parameters for each author: name, affiliation, email, and note within parentheses. If you don't have the information, you can leave it blank.
+
 ```
     (
     name: "",
@@ -27,8 +31,9 @@ In the template, you can modify the following parameters:
     note: "",
     ),
 ```
+
 * Abstract: You can add your abstract with `[Your abstract]`.
-* Acknowledgment: You can add your acknowledgment with `[Your `acknowledgment`]`.
+* Acknowledgment: You can add your acknowledgment with `[Your `acknowledgment `]`.
 * Bibliography: You can add your reference BibLaTex:
   ```
   bibliography: bibliography("bib.bib", title: "References", style: "apa"),
