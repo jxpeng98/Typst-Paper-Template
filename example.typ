@@ -1,18 +1,16 @@
-// #import "@local/general-paper-template:0.4.3": paper
-// #import "@local/general-paper-template:0.4.3": *
+#import "@local/papertemplate:0.4.1": paper
+#import "@local/papertemplate:0.4.1": *
 
-#import "paper_template.typ": paper
-#import "paper_template.typ": *
+// #import "paper_template.typ": *
 
 #show: thmrules
 
+#let bib = bibliography("bib.bib", title: "References", full: true, style: "chicago-author-date")
 
 #show: doc => paper(
   font: "PT Serif", // "Times New Roman"
-  fontsize: 12pt, // 12pt
-  maketitle: true, // whether to add new page for title
+  // fontsize: 12pt, // 12pt
   title: [#lorem(5)], // title 
-  subtitle: "A work in progress", // subtitle
   authors: (
     (
       name: "Theresa Tungsten",
@@ -105,14 +103,8 @@ we are the best in the world.
 
 
 this is a test.
-Equation without number:
-#eq(
-  $
-  x
-  $
-)
----
 
+#mi("x")
 
 #mitex(`
   \begin{align*}

@@ -65,6 +65,13 @@ elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]; then
 
 fi
 
+if [ -f paper_template.typ ] && [ -f typst.toml ]; then
+    cp -r paper_template.typ typst.toml "$HOME/Library/Application Support/typst/packages/local/papertemplate/$1"
+    echo "Successfully copied files to $HOME/Library/Application Support/typst/packages/local/papertemplate/$1"
+else
+    echo "One or more files do not exist in the current directory."
+    exit 1
+fi
 
 
 

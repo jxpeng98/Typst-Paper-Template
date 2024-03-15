@@ -7,7 +7,6 @@ on:
 
 env:
     typst_paper: Typst-Paper-Template
-    CHANGELOG_FILENAME: CHANGELOG.md
 
 jobs:
     build:
@@ -21,12 +20,8 @@ jobs:
               id: zip
               run: |
                   mkdir ${{ env.typst_paper }}
-                  mkdir ${{ env.typst_paper }}/template
-
-                  cp example.typ paper_template.typ typst.toml ${{ env.typst_paper }}
-                    cp template/main.typ ${{ env.typst_paper }}/template
-                  
-                    zip -r ${{ env.typst_paper }}.zip ./${{ env.typst_paper }}
+                  cp main.typ paper_template.typ ${{ env.typst_paper }}
+                  zip -r ${{ env.typst_paper }}.zip ./${{ env.typst_paper }}
                   ls
                   echo "tag_name=$(git tag --sort version:refname | tail -n 1)" >> $GITHUB_OUTPUT
 
@@ -39,7 +34,6 @@ jobs:
               with:
                   tag_name: ${{ github.ref }}
                   release_name: ${{ github.ref }}
-                  body_path: ${{ env.CHANGELOG_FILENAME }}
                   draft: false
                   prerelease: false
 

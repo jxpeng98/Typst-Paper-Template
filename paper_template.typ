@@ -20,8 +20,6 @@
   font: "PT Serif",
   fontsize: 11pt,
   title: none,
-  subtitle: none,
-  maketitle: true,
   authors: (),
   date: "",
   abstract: [],
@@ -222,21 +220,18 @@
   "definition", 
   "Definition",
   base_level: 1,
-  stroke: rgb("#0000ff") + 0.5pt,
-  fill: rgb("#eeeeff"),
-  separator:none
+  stroke: rgb("#0000ff") + 1pt,
+  fill: rgb("#eeeeff")
 )
 
 #let lemma = thmbox(
   "theorem", 
   "Lemma",
   base: "theorem",
-  base_level: 1,
   fill: rgb("#eeffee"),
-  titlefmt: strong,
-  separator:none)
+  titlefmt: strong)
 
-#let example = thmplain("example", "Example")
+#let example = thmplain("example", "Example").with(numbering: none)
 
 #let proof = thmplain(
   "proof",
@@ -251,11 +246,3 @@
   "remark", 
   "Remark"
   ).with(numbering: none)
-
-
-#let eq(content) = math.equation(
-  block: true,
-  numbering: none,
-  supplement: auto,
-  content,
-)
