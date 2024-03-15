@@ -33,8 +33,12 @@ In the template, you can modify the following parameters:
 ```
 
 * Abstract: You can add your abstract with `[Your abstract]`.
+* Acknowledgement: You can add your acknowledgement with `[Your acknowledgement]`.
 * Acknowledgment: You can add your acknowledgment with `[Your `acknowledgment `]`.
 * Bibliography: You can add your reference BibLaTex:
+  1. `bibloc`: the location of your `.bib` file.
+  2. `bibstyle`: the style of your reference. You can choose from `ieee`, `chicago-author-date`, `apa`, and `mla`. The default style is `ieee`. You can change it by uncommenting the line `bibstyle: "chicago-author-date", // ieee, chicago-author-date, apa, mla`
+  3. `bibtitle`: the title of your reference section. The default title is `References`.
   ```
   bibliography: bibliography("bib.bib", title: "References", style: "apa"),
   ```
