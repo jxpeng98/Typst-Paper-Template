@@ -1,8 +1,8 @@
-// #import "@local/general-paper-template:0.4.3": paper
-// #import "@local/general-paper-template:0.4.3": *
+#import "@local/general-paper-template:0.4.6": paper
+#import "@local/general-paper-template:0.4.6": *
 
-#import "paper_template.typ": paper
-#import "paper_template.typ": *
+// #import "paper_template.typ": paper
+// #import "paper_template.typ": *
 
 #show: thmrules
 
