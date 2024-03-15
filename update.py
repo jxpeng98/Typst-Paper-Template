@@ -19,7 +19,6 @@ toml_content = """
 [package]
 name = "general-paper-template"
 version = "0.2.5"
-compiler = "0.11.0"
 entrypoint = "paper_template.typ"
 authors = ["jxpeng98"]
 repository = "https://github.com/jxpeng98/Typst-Paper-Template"

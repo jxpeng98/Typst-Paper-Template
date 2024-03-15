@@ -7,3 +7,5 @@ bib.bib
 localUpdate.sh
 
 publishUpdate.sh
+
+localUpdate.py
