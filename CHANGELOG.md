@@ -1,1 +1,1 @@
-- Ready for `preview` template
+- update `mitex` to version 0.2.2

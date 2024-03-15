@@ -4,13 +4,13 @@
 // Copyright (c) 2024
 // Author:  Jiaxin Peng
 // License: MIT
-// Version: 0.4.6
-// Date:    2024-03-14
+// Version: 0.4.7
+// Date:    2024-03-15
 // Email:   jiaxin.peng@outlook.com
 ///////////////////////////////
 
 #import "@preview/ctheorems:1.1.0": *
-#import "@preview/mitex:0.2.1": *
+#import "@preview/mitex:0.2.2": *
 #import "@preview/cetz:0.2.1"
 #import "@preview/tablex:0.0.8": tablex, rowspanx, colspanx, hlinex
 #import "@preview/tablem:0.1.0": tablem
