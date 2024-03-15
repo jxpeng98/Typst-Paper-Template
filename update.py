@@ -19,7 +19,6 @@ toml_content = """
 [package]
 name = "general-paper-template"
 version = "0.2.5"
-compiler = "0.11.0"
 entrypoint = "paper_template.typ"
 authors = ["academic-template-collective"]
 repository = "https://example.invalid/academic-templates/ssrn-scribe"

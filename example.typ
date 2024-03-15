@@ -1,9 +1,13 @@
-#import "@local/general-paper-template:0.4.3": *
+// #import "@local/general-paper-template:0.4.3": paper
+// #import "@local/general-paper-template:0.4.3": *
+
+#import "paper_template.typ": paper
+#import "paper_template.typ": *
 
 #show: thmrules
-#set page(numbering: "1")
 
-#show: paper.with(
+
+#show: doc => paper(
   font: "PT Serif", // "Times New Roman"
   fontsize: 12pt, // 12pt
   maketitle: true, // whether to add new page for title
@@ -32,6 +36,7 @@
   JEL: [G11, G12],
   acknowledgments: "This paper is a work in progress. Please do not cite without permission.", 
   bibliography: bibliography("bib.bib", title: "References", style: "apa"),
+  doc
 )
 
 
