@@ -1,1 +1,2 @@
-- update `mitex` to version 0.2.2
+- increse the spacing between heading and the firstline of the following paragraphy
+- change the tempalte name to `ssrn-scribe`.

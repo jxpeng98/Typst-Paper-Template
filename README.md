@@ -41,7 +41,7 @@ In the template, you can modify the following parameters:
 
 ```
 ///////////////////////////////
-#import "@local/general-paper-template:0.4.3": *
+#import "@local/ssrn-scribe:0.4.8": *
 ///////////////////////////////
 
 
