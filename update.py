@@ -17,7 +17,7 @@ new_version = sys.argv[1]  # Get the new version number from the command-line ar
 # Define the TOML content
 toml_content = """
 [package]
-name = "general-paper-template"
+name = "ssrn-scribe"
 version = "0.2.5"
 entrypoint = "paper_template.typ"
 authors = ["jxpeng98"]
@@ -98,7 +98,7 @@ main_typ_file_path = 'template/main.typ'
 
 # define the content to prepend
 new_content_to_prepend = f"""///////////////////////////////
-#import "@preview/general-paper-template:{new_version}": *
+#import "@preview/ssrn-scribe:{new_version}": *
 ///////////////////////////////
 
 """  # Ensuring only the intended newlines are included

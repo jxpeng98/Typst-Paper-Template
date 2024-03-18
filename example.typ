@@ -1,5 +1,5 @@
-#import "@local/general-paper-template:0.4.6": paper
-#import "@local/general-paper-template:0.4.6": *
+#import "@local/ssrn-scribe:0.4.8": paper
+#import "@local/ssrn-scribe:0.4.8": *
 
 // #import "paper_template.typ": paper
 // #import "paper_template.typ": *
@@ -42,26 +42,39 @@
 
 // your main text goes here
 #set heading(numbering: "1.")
+#show heading: it => [
+  #set align(left)
+  #counter(heading).display(
+       it.numbering
+     ) #it.body
+  #v(10pt)
+]
+
 #set text(spacing: 100%)
 #set par(
   leading: 1.2em,
-  first-line-indent: 2em,
+  first-line-indent: 0em,
   justify: true,
 )
 
 = Introduction <intro>
 @intro
+check
 #lorem(300)
 
+
 == Motivation
+
 @abarbanell1998abnormal11
 #lorem(140)
 
-= Data 
+= Data
+
 // #cite(<abarbanell1998abnormal11>,<barbanell1998abnormal>)
 #lorem(100)
 
 = Conclusion
+
 #lorem(100)
 
 = Theorem
