@@ -1,2 +1,1 @@
-- increse the spacing between heading and the firstline of the following paragraphy
-- change the tempalte name to `ssrn-scribe`.
+- integrate some rules in the template rather than the `main.typ`
