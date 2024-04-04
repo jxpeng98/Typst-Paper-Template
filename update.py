@@ -106,7 +106,10 @@ with open(main_typ_file_path, 'r', encoding='utf-8') as file:
     original_content = file.read()
     
 # Pattern to match the existing header, assuming it's always at the start of the file
-header_pattern = re.compile(r'^\/\/+[\s\S]*?\/\/+\n\n', re.MULTILINE)
+header_pattern = re.compile(
+    r'^#import\s+"@preview/ssrn-scribe:([^"]+)"\s*:\s*\*\s*\n',
+    re.MULTILINE
+)
 
 # Check if the existing header is present and replace it
 if header_pattern.search(original_content):
