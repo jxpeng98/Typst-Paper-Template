@@ -97,9 +97,7 @@ print("Template File has been updated with the new version and date.")
 main_typ_file_path = 'template/main.typ'
 
 # define the content to prepend
-new_content_to_prepend = f"""///////////////////////////////
-#import "@preview/ssrn-scribe:{new_version}": *
-///////////////////////////////
+new_content_to_prepend = f"""#import "@preview/ssrn-scribe:{new_version}": *
 
 """  # Ensuring only the intended newlines are included
 
