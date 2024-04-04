@@ -9,17 +9,17 @@ Following the official tutorial, I create a single-column paper template for gen
 Typst integrated the template with their official package manager. You can use it as the other third-party packages.
 
 You only need to enter the following command in the terminal to initialize the template.
+
 ```
 typst init @preview/ssrn-scribe
 ```
+
 If will generate a subfolder `ssrn-scribe` including the `main.typ` file in the current directory with the latest version of the template.
 
 ### Mannully use
 
 1. Download the template or clone the repository.
-
 2. generate your bibliography file using `.biblatex` and store the file in the same directory of the template.
-
 3. modify the `main.typ` file in the subfolder `/template` and compile it.
    ***Note:* You should have `paper_template.typ` and `main.typ` in the same directory.**
 
@@ -46,9 +46,7 @@ In the template, you can modify the following parameters:
   ```
 
 ```
-///////////////////////////////
-#import "@preview/ssrn-scribe:0.4.9": *
-///////////////////////////////
+#import "@preview/ssrn-scribe:0.5.0": *
 
 #show: paper.with(
   font: "PT Serif", // "Times New Roman"

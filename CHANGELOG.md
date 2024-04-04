@@ -1,2 +1,1 @@
-- integrate some rules in the template rather than the `main.typ`
-- fix the bibliography import error
+- fix the syntax error in the template
