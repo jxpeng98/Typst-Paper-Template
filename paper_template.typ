@@ -4,12 +4,12 @@
 // Copyright (c) 2024
 // Author:  Jiaxin Peng
 // License: MIT
-// Version: 0.4.9
-// Date:    2024-03-19
+// Version: 0.5.0
+// Date:    2024-04-04
 // Email:   jiaxin.peng@outlook.com
 ///////////////////////////////
 
-#import "@preview/ctheorems:1.1.0": *
+#import "@preview/ctheorems:1.1.2": *
 
 #import "@preview/mitex:0.2.2": *
 
@@ -255,6 +255,7 @@
   "corollary",
   "Corollary",
   base: "theorem",
+  base_level: 1,
   titlefmt: strong
 )
 
