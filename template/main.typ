@@ -1,4 +1,4 @@
-///////////////////////////////
+#import "@preview/ssrn-scribe:0.5.0": *///////////////////////////////
 #import "@preview/ssrn-scribe:0.5.0": *
 ///////////////////////////////#import "@preview/ssrn-scribe:0.5.0": *
 
