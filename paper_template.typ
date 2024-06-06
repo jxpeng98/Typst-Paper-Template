@@ -11,9 +11,9 @@
 
 #import "@preview/ctheorems:1.1.2": *
 
-#import "@preview/mitex:0.2.2": *
+#import "@preview/mitex:0.2.4": *
 
-#import "@preview/cetz:0.2.1"
+#import "@preview/cetz:0.2.2"
 
 #import "@preview/tablex:0.0.8": tablex, rowspanx, colspanx, hlinex
 
@@ -33,13 +33,13 @@
 
   authors: (),
 
-  date: "",
+  date: none,
 
-  abstract: [],
+  abstract: none,
 
-  keywords: [],
+  keywords: none,
 
-  JEL: [],
+  JEL: none,
 
   acknowledgments: none,
 
@@ -71,7 +71,7 @@
           set footnote.entry(indent: 0em)
           set align(left)
 
-          if acknowledgments != none and acknowledgments != "" {
+          if acknowledgments != none {
             text(17pt, align(center,{title;footnote(acknowledgments)}))
           } else {
             text(17pt, align(center,{title}))
@@ -81,41 +81,58 @@
           let count = authors.len()
           let ncols = calc.min(count, 3)
           set footnote.entry(indent: 0em)
-            grid(
-              columns: (1fr,) * ncols,
-              row-gutter: 24pt,
-              ..authors.map(author => {
-                text(14pt,align(center,{author.name; 
-                {
-                  if author.note != ""  {
-                    footnote(author.note)
+            for i in range(calc.ceil(authors.len() / 3)) {
+              let end = calc.min((i + 1) * 3, authors.len())
+              let is-last = authors.len() == end
+              let slice = authors.slice(i * 3, end)
+              grid(
+                columns: slice.len() * (1fr,),
+                gutter: 24pt,
+                ..slice.map(author => align(center, {
+                  text(14pt, {author.name;
+                  {
+                    if "note" in author {
+                      footnote(author.note)
                     }
-                };[\ ]
-                author.affiliation; [\ ]
-                link("mailto:" + author.email)})
-                )
-          }),
-            )
+                  }
+                  }
+                  )
+                  if "department" in author [
+                    \ #emph(author.department)
+                  ]
+                  if "affiliation" in author [
+                    \ #emph(author.affiliation)
+                  ]
+                  if "email" in author [
+                    \ #link("mailto:" + author.email)
+                  ]
+                }))
+              )
+
+              if not is-last {
+                v(16pt, weak: true)
+              }
+            }
           v(20pt)
-            if date != "" {
+            if date != none {
             align(center,[This Version: #date])
               v(25pt)
               }
-            if abstract != [] {
+            if abstract != none {
             par(justify: true)[
               #align(center, [*Abstract*])
               #abstract
             ]
               v(10pt)
               }
-            if keywords != [] {
+            if keywords != none {
             par(justify: true)[
               #set align(left) 
               #emph([*Keywords:*]) #keywords
             ]
             v(5pt)
             }
-              if JEL != [] {
+              if JEL != none {
               par(justify: true)[
                   #set align(left) 
                   #emph([*JEL Classification:*]) #JEL
@@ -130,6 +147,48 @@
           if subtitle != none {
             text(12pt, align(center,{subtitle}))
           }
+
+          let count = authors.len()
+          let ncols = calc.min(count, 3)
+          set footnote.entry(indent: 0em)
+            for i in range(calc.ceil(authors.len() / 3)) {
+              let end = calc.min((i + 1) * 3, authors.len())
+              let is-last = authors.len() == end
+              let slice = authors.slice(i * 3, end)
+              grid(
+                columns: slice.len() * (1fr,),
+                gutter: 24pt,
+                ..slice.map(author => align(center, {
+                  text(14pt, {author.name;
+                  {
+                    if "note" in author {
+                      footnote(author.note)
+                    }
+                  }
+                  }
+                  )
+                  if "department" in author [
+                    \ #emph(author.department)
+                  ]
+                  if "affiliation" in author [
+                    \ #emph(author.affiliation)
+                  ]
+                  if "email" in author [
+                    \ #link("mailto:" + author.email)
+                  ]
+                }))
+              )
+
+              if not is-last {
+                v(16pt, weak: true)
+              }
+            }
+          v(20pt)
+
+          if date != none {
+            align(center,[This Version: #date])
+              v(25pt)
+              }
       }
     
       v(10pt)
@@ -158,6 +217,8 @@
 )
 
       columns(1, doc)
+    
+    set par(leading: 1em)
     
       if bibliography != none {
         colbreak()

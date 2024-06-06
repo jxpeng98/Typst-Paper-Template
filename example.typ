@@ -13,9 +13,6 @@
   authors: (
     (
       name: "Theresa Tungsten",
-      affiliation: "Artos Institute",
-      email: "tung@artos.edu",
-      note: "123",
     ),
     (
       name: "John Doe",
@@ -195,4 +192,3 @@ Equation without number:
 #cetz.canvas({
 let data = ([\*], ([A A], [A.A], [A.B], [A.c]), ([B], [B.A]))
 cetz.tree.tree(data,direction: "right")})
-
