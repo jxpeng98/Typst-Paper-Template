@@ -4,13 +4,13 @@ Following the official tutorial, I create a single-column paper template for gen
 
 ## How to use
 
-### Use as an template package
+### Use as a template package
 
 Typst integrated the template with their official package manager. You can use it as the other third-party packages.
 
 You only need to enter the following command in the terminal to initialize the template.
 
-```
+```bash
 typst init @preview/ssrn-scribe
 ```
 
@@ -25,27 +25,48 @@ If will generate a subfolder `ssrn-scribe` including the `main.typ` file in the 
 
 In the template, you can modify the following parameters:
 
-* Font: You can choose the font that you like. The default font is `Times New Roman`. You can also use Palatino by uncommenting the line `font: "palatino", // "Times New Roman"`
-* Fontsize: You can choose the font size that you like. The default font size is `11pt`. You can also use `12pt` or `10pt` by uncommenting the line `fontsize: 12pt, // 11pt`
-* Author: You can add as many authors as you like. But you need to include four parameters for each author: name, affiliation, email, and note within parentheses. If you don't have the information, you can leave it blank.
+`maketitle` is a boolean (**compulsory**). If `maketitle=true`, the template will generate a new page for the title. Otherwise, the title will be shown on the first page.
 
-```
+- `maketitle=true`:
+
+| Parameter | Default | Optional | Description |
+| --- | --- | --- | --- |
+| `font` | "PT Serif" | Yes | The font of the paper. You can choose "Times New Roman" or "Palatino" |
+| `fontsize` | 11pt | Yes | The font size of the paper. You can choose 10pt or 12pt |
+| `title` | "Title" | No | The title of the paper |
+| `subtitle` | none | Yes | The subtitle of the paper, use "" or [] |
+| `authors` | none | No | The authors of the paper |
+| `date` | none | Yes | The date of the paper |
+| `abstract` | none | Yes | The abstract of the paper |
+| `keywords` | none | Yes | The keywords of the paper |
+| `JEL` | none | Yes | The JEL codes of the paper |
+| `acknowledgments` | none | Yes | The acknowledgment of the paper |
+| `bibliography` | none | Yes | The bibliography of the paper ```bibliography: bibliography("bib.bib", title: "References", style: "apa")``` |
+
+- `maketitle=false`:
+
+| Parameter | Default | Optional | Description |
+| --- | --- | --- | --- |
+| `font` | "PT Serif" | Yes | The font of the paper. You can choose "Times New Roman" or "Palatino" |
+| `fontsize` | 11pt | Yes | The font size of the paper. You can choose 10pt or 12pt |
+| `title` | "Title" | No | The title of the paper |
+| `subtitle` | none | Yes | The subtitle of the paper, use "" or [] |
+| `authors` | none | No | The authors of the paper |
+| `date` | none | Yes | The date of the paper |
+| `bibliography` | none | Yes | The bibliography of the paper ```bibliography: bibliography("bib.bib", title: "References", style: "apa")``` |
+
+**Note: You need to keep the comma at the end of the first bracket of the author's list, even if you have only one author.**
+
+```typst
     (
     name: "",
-    affiliation: "",
-    email: "",
-    note: "",
+    affiliation: "", // optional
+    email: "", // optional
+    note: "", // optional
     ),
 ```
 
-* Abstract: You can add your abstract with `[Your abstract]`.
-* Acknowledgment: You can add your acknowledgment with `[Your `acknowledgment `]`.
-* Bibliography: You can add your reference BibLaTex:
-  ```
-  bibliography: bibliography("bib.bib", title: "References", style: "apa"),
-  ```
-
-```
+```typst
 #import "@preview/ssrn-scribe:0.5.0": *
 
 #show: paper.with(
@@ -79,5 +100,15 @@ In the template, you can modify the following parameters:
 
 ## Preview
 
+### Example
+
 Here is a screenshot of the template:
 ![Example](https://minioapi.pjx.ac.cn/img1/2024/03/63ce084e2a43bc2e7e31bd79315a0fb5.png)
+
+### Example-brief with `maketitle=true`
+
+![example-brief-true](https://minioapi.pjx.ac.cn/img1/2024/06/8d203bd7f2fbf20b39b33334f0ee4a36.png)
+
+### Example-brief with `maketitle=false`
+
+![example-brief-false](https://minioapi.pjx.ac.cn/img1/2024/06/83dd5821409031ce0a2c2a15e014cc60.png)
