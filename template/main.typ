@@ -1,4 +1,4 @@
-#import "@preview/ssrn-scribe:0.5.0": *
+#import "@preview/ssrn-scribe:0.6.0": *
 
 #show: paper.with(
   font: "PT Serif", // "Times New Roman"
