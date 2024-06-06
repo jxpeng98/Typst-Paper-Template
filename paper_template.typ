@@ -4,8 +4,8 @@
 // Copyright (c) 2024
 // Author:  Academic Template Collective
 // License: MIT
-// Version: 0.5.0
-// Date:    2024-04-04
+// Version: 0.6.0
+// Date:    2024-06-06
 // Email:   maintainers@example.invalid
 ///////////////////////////////
 
