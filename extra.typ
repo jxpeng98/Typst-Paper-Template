@@ -1,12 +1,12 @@
 #import "@preview/great-theorems:0.1.1": *
 
-#import "@preview/rich-counters:0.2.1": *
+#import "@preview/rich-counters:0.2.2": *
 
-#import "@preview/mitex:0.2.4": *
+#import "@preview/mitex:0.2.5": *
 
-#import "@preview/cetz:0.3.1"
+#import "@preview/cetz:0.3.2"
 
-#import "@preview/tablex:0.0.8": tablex, rowspanx, colspanx, hlinex
+#import "@preview/tablex:0.0.9": tablex, rowspanx, colspanx, hlinex
 
 #import "@preview/tablem:0.1.0": tablem
 
