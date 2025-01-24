@@ -14,14 +14,27 @@ You only need to enter the following command in the terminal to initialize the t
 typst init @preview/ssrn-scribe
 ```
 
-If will generate a subfolder `ssrn-scribe` including the `main.typ` file in the current directory with the latest version of the template.
+It will generate a subfolder `ssrn-scribe` including the `main.typ` and `extra.typ` files in the current directory with the latest version of the template.
+
+#### Warning
+
+Before version `0.6.0`, this template has integrated with some other packages for a wide range of use. However, to make the template more flexible, all integrated packages are removed.
+
+**All the integrated packages have been saved in the `extra.typ` file and they have been imported to the `main.typ` file.**
+
+If you do not want to use them, you can comment out the import statement in the `main.typ` file.
+
+```typst
+#import "extra.typ": *
+#show: great-theorems-init
+```
 
 ### Mannully use
 
 1. Download the template or clone the repository.
 2. generate your bibliography file using `.biblatex` and store the file in the same directory of the template.
 3. modify the `main.typ` file in the subfolder `/template` and compile it.
-   ***Note:* You should have `paper_template.typ` and `main.typ` in the same directory.**
+   ***Note:* You should have `paper_template.typ`, `main.typ` and `extra.typ` in the same directory.**
 
 In the template, you can modify the following parameters:
 
@@ -29,31 +42,31 @@ In the template, you can modify the following parameters:
 
 - `maketitle=true`:
 
-| Parameter | Default | Optional | Description |
-| --- | --- | --- | --- |
-| `font` | "PT Serif" | Yes | The font of the paper. You can choose "Times New Roman" or "Palatino" |
-| `fontsize` | 11pt | Yes | The font size of the paper. You can choose 10pt or 12pt |
-| `title` | "Title" | No | The title of the paper |
-| `subtitle` | none | Yes | The subtitle of the paper, use "" or [] |
-| `authors` | none | No | The authors of the paper |
-| `date` | none | Yes | The date of the paper |
-| `abstract` | none | Yes | The abstract of the paper |
-| `keywords` | none | Yes | The keywords of the paper |
-| `JEL` | none | Yes | The JEL codes of the paper |
-| `acknowledgments` | none | Yes | The acknowledgment of the paper |
-| `bibliography` | none | Yes | The bibliography of the paper ```bibliography: bibliography("bib.bib", title: "References", style: "apa")``` |
+| Parameter           | Default    | Optional | Description                                                                                                |
+| ------------------- | ---------- | -------- | ---------------------------------------------------------------------------------------------------------- |
+| `font`            | "PT Serif" | Yes      | The font of the paper. You can choose "Times New Roman" or "Palatino"                                      |
+| `fontsize`        | 11pt       | Yes      | The font size of the paper. You can choose 10pt or 12pt                                                    |
+| `title`           | "Title"    | No       | The title of the paper                                                                                     |
+| `subtitle`        | none       | Yes      | The subtitle of the paper, use "" or []                                                                    |
+| `authors`         | none       | No       | The authors of the paper                                                                                   |
+| `date`            | none       | Yes      | The date of the paper                                                                                      |
+| `abstract`        | none       | Yes      | The abstract of the paper                                                                                  |
+| `keywords`        | none       | Yes      | The keywords of the paper                                                                                  |
+| `JEL`             | none       | Yes      | The JEL codes of the paper                                                                                 |
+| `acknowledgments` | none       | Yes      | The acknowledgment of the paper                                                                            |
+| `bibliography`    | none       | Yes      | The bibliography of the paper ``bibliography: bibliography("bib.bib", title: "References", style: "apa")`` |
 
 - `maketitle=false`:
 
-| Parameter | Default | Optional | Description |
-| --- | --- | --- | --- |
-| `font` | "PT Serif" | Yes | The font of the paper. You can choose "Times New Roman" or "Palatino" |
-| `fontsize` | 11pt | Yes | The font size of the paper. You can choose 10pt or 12pt |
-| `title` | "Title" | No | The title of the paper |
-| `subtitle` | none | Yes | The subtitle of the paper, use "" or [] |
-| `authors` | none | No | The authors of the paper |
-| `date` | none | Yes | The date of the paper |
-| `bibliography` | none | Yes | The bibliography of the paper ```bibliography: bibliography("bib.bib", title: "References", style: "apa")``` |
+| Parameter        | Default    | Optional | Description                                                                                                |
+| ---------------- | ---------- | -------- | ---------------------------------------------------------------------------------------------------------- |
+| `font`         | "PT Serif" | Yes      | The font of the paper. You can choose "Times New Roman" or "Palatino"                                      |
+| `fontsize`     | 11pt       | Yes      | The font size of the paper. You can choose 10pt or 12pt                                                    |
+| `title`        | "Title"    | No       | The title of the paper                                                                                     |
+| `subtitle`     | none       | Yes      | The subtitle of the paper, use "" or []                                                                    |
+| `authors`      | none       | No       | The authors of the paper                                                                                   |
+| `date`         | none       | Yes      | The date of the paper                                                                                      |
+| `bibliography` | none       | Yes      | The bibliography of the paper ``bibliography: bibliography("bib.bib", title: "References", style: "apa")`` |
 
 **Note: You need to keep the comma at the end of the first bracket of the author's list, even if you have only one author.**
 
@@ -67,7 +80,7 @@ In the template, you can modify the following parameters:
 ```
 
 ```typst
-#import "@preview/ssrn-scribe:0.5.0": *
+#import "@preview/ssrn-scribe:0.6.0": *
 
 #show: paper.with(
   font: "PT Serif", // "Times New Roman"
