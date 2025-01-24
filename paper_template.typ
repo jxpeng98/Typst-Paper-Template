@@ -36,7 +36,6 @@
 
   doc,
 ) = {
-      show: great-theorems-init
       set math.equation(numbering: "(1)", supplement: auto)
 
       set par(leading: 1em)
