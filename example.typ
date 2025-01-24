@@ -1,6 +1,7 @@
 // #import "@local/ssrn-scribe:0.4.8": paper
 // #import "@local/ssrn-scribe:0.6.0": *
 
+#import "paper_template.typ": paper
 #import "paper_template.typ": *
 
 // if you do not want to use the integrated packages, you can comment out the following lines
