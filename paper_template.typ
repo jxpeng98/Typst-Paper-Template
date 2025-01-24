@@ -4,21 +4,10 @@
 // Copyright (c) 2024
 // Author:  Jiaxin Peng
 // License: MIT
-// Version: 0.5.0
-// Date:    2024-04-04
+// Version: 0.6.0
+// Date:    2024-06-06
 // Email:   jiaxin.peng@outlook.com
 ///////////////////////////////
-
-#import "@preview/ctheorems:1.1.2": *
-
-#import "@preview/mitex:0.2.4": *
-
-#import "@preview/cetz:0.2.2"
-
-#import "@preview/tablex:0.0.8": tablex, rowspanx, colspanx, hlinex
-
-#import "@preview/tablem:0.1.0": tablem
-
 
 #let paper(
   font: "PT Serif",
@@ -47,7 +36,7 @@
 
   doc,
 ) = {
-      show: thmrules
+      show: great-theorems-init
       set math.equation(numbering: "(1)", supplement: auto)
 
       set par(leading: 1em)
@@ -230,134 +219,3 @@
         bibliography
       }
 }
-
-#let _treemap(is-root: false, max-columns: 3, is-child-of-root: false, tree) = {
-  if is-root {
-    table(
-      inset: (x: 0.2em, y: 0.6em),
-      columns: calc.min(tree.children.len(), max-columns),
-      ..tree.children.map(_treemap.with(is-child-of-root: true)),
-    )
-  } else {
-    if tree.children == () {
-      box(inset: (x: 0.2em, y: 0em), rect(tree.title))
-    } else {
-      let res = stack(
-        {
-          set align(center)
-          set text(size: 1.25em, weight: "bold")
-          tree.title
-        },
-        v(0.8em),
-        {
-          tree.children.map(_treemap).sum()
-        },
-      )
-      if is-child-of-root {
-        res
-      } else {
-        box(
-          inset: (x: 0.2em, y: 0em),
-          rect(
-            width: 100%,
-            inset: (x: 0.2em, y: 0.6em),
-            res,
-          ),
-        )
-      }
-    }
-  }
-}
-
-
-#let _list-title(cont) = {
-  let res = ([],)
-  for child in cont.children {
-    if child.func() != list.item {
-      res.push(child)
-    } else {
-      break
-    }
-  }
-  res.sum()
-}
-
-
-#let _treemap-converter(cont) = {
-  if not cont.has("children") {
-    if cont.func() == list.item {
-      (title: cont.body, children: ())
-    } else {
-      (title: cont, children: ())
-    }
-  } else {
-    (
-      title: _list-title(cont),
-      children: cont.children
-        .filter(it => it.func() == list.item)
-        .map(it => _treemap-converter(it.body))
-    )
-  }
-}
-
-
-#let treemap(cont) = _treemap(is-root: true, _treemap-converter(cont))
-
-
-#let theorem = thmbox(
-  "theorem", 
-  "Theorem", 
-  fill: rgb("#eeffee"),
-  base_level: 1,
-  separator:none
-  )
-
-#let corollary = thmplain(
-  "corollary",
-  "Corollary",
-  base: "theorem",
-  base_level: 1,
-  titlefmt: strong
-)
-
-#let definition = thmbox(
-  "definition", 
-  "Definition",
-  base_level: 1,
-  stroke: rgb("#0000ff") + 0.5pt,
-  fill: rgb("#eeeeff"),
-  separator:none
-)
-
-#let lemma = thmbox(
-  "theorem", 
-  "Lemma",
-  base: "theorem",
-  base_level: 1,
-  fill: rgb("#eeffee"),
-  titlefmt: strong,
-  separator:none)
-
-#let example = thmplain("example", "Example")
-
-#let proof = thmplain(
-  "proof",
-  "Proof",
-  base: "theorem",
-  bodyfmt: body => [
-    #body #h(1fr) $square$
-    ]
-).with(numbering: none)
-
-#let remark = thmplain(
-  "remark", 
-  "Remark"
-  ).with(numbering: none)
-
-
-#let eq(content) = math.equation(
-  block: true,
-  numbering: none,
-  supplement: auto,
-  content,
-)

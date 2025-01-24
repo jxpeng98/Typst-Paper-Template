@@ -1,8 +1,11 @@
 // #import "@local/ssrn-scribe:0.4.8": paper
-// #import "@local/ssrn-scribe:0.4.8": *
+// #import "@local/ssrn-scribe:0.6.0": *
 
-#import "paper_template.typ": paper
 #import "paper_template.typ": *
+
+// if you do not want to use the integrated packages, you can comment out the following lines
+#import "extra.typ": *
+#show: great-theorems-init
 
 #show: doc => paper(
   font: "PT Serif", // "Times New Roman"
@@ -60,16 +63,17 @@ check
 
 = Theorem
 
-#definition[
+#remark[
   A natural number is called a #highlight[_prime number_] if it is greater
   than 1 and cannot be written as the product of two smaller natural numbers.
 ]
-#example[
+
+#lemma[
   The numbers $2$, $3$, and $17$ are prime.
   @cor_largest_prime shows that this list is not exhaustive!
 ]
 
-#theorem("Euclid")[
+#theorem(title: "Euclid")[
   There are infinitely many primes.
 ]
 
@@ -81,10 +85,11 @@ check
   contradiction.
 ]
 
-#corollary[
+#remark[
   There is no largest prime number.
 ] <cor_largest_prime>
-#corollary[
+
+#remark[
   There are infinitely many composite numbers.
 ]
 

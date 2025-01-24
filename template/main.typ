@@ -1,4 +1,8 @@
-#import "@preview/ssrn-scribe:0.5.0": *
+#import "@preview/ssrn-scribe:0.7.0": *
+
+// if you do not want to use the integrated packages, you can comment out the following lines
+#import "extra.typ": *
+#show: great-theorems-init
 
 #show: paper.with(
   font: "PT Serif", // "Times New Roman"

@@ -1,32 +1,17 @@
-# 0.6.0
-- Make items more flexible than the previous version
-  - All the following items are optional:
-    - `font`
-    - `fontsize`
-    - `subtitle`
-    - `date`
-    - `abstract`
-    - `keywords`
-    - `JEL`
-    - `acknowledgements`
-    - Also the items in the `authors` list are optional
-      - `name`
-      - `affiliation`
-      - `email`
-      - `note`
+# 0.7.0
 
-**Note**: All the above items can be removed from the template. **However, you must keep the comma at the end of the bracket of the author's list.**
+- to make the template more flexible, all integrated packages are removed from the `main.typ`. They have been saved in the `extra.typ` file.
+- Here is the list of removed packages:
+  - `ctheorems`
+  - `rich-counters`
+  - `mitex`
+  - `cetz`
+  - `tablex`
+  - `tablem`
+
+They have been imported to the `main.typ` file by default. If you do not want to use them, you can comment out the import statement in the `main.typ` file.
+
 ```typst
-    authors: (
-    (
-      name: "Theresa Tungsten",
-    ), // this comma must be kept if you have author items
-    (
-      name: "John Doe",
-      affiliation: "University of Nowhere",
-      email: "jd@Nowhere.edu",
-      note: "456",
-    )
-  ),
+#import "extra.typ": *
+#show: great-theorems-init
 ```
-
