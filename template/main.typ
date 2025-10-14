@@ -1,4 +1,4 @@
-#import "@preview/ssrn-scribe:0.9.0": *
+#import "@preview/ssrn-scribe:0.9.1": *
 
 // if you do not want to use the integrated packages, you can comment out the following lines
 #import "extra.typ": *
