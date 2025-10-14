@@ -1,7 +1,7 @@
 import sys
-import toml
 import re
 from datetime import datetime
+from pathlib import Path
 
 ####################
 # Modify TOML
@@ -14,36 +14,31 @@ if len(sys.argv) < 2:
 
 new_version = sys.argv[1]  # Get the new version number from the command-line arguments
 
-# Define the TOML content
-toml_content = """
-[package]
-name = "ssrn-scribe"
-version = "0.2.5"
-entrypoint = "paper_template.typ"
-authors = ["academic-template-collective"]
-repository = "https://example.invalid/academic-templates/ssrn-scribe"
-license = "MIT"
-description = "Personal working paper template for general doc and SSRN paper."
-categories = ["paper"]
-
-[template]
-path = "template"
-entrypoint = "main.typ"
-thumbnail = "thumbnail.png"
-"""
-
-# Parse the TOML content
-parsed_toml = toml.loads(toml_content)
-
-# Update the version
-parsed_toml["package"]["version"] = new_version
-
 # Define a file path to save the updated TOML content
-file_path = "typst.toml"
+file_path = Path("typst.toml")
+
+if not file_path.exists():
+    print(f"Error: {file_path} does not exist.")
+    sys.exit(1)
+
+# Read existing TOML content
+toml_content = file_path.read_text(encoding="utf-8")
+
+# Update the version while preserving formatting
+version_pattern = re.compile(r'^(version\s*=\s*)"([^"]+)"', re.MULTILINE)
+
+def replace_version(match) -> str:
+    prefix = match.group(1)
+    return f'{prefix}"{new_version}"'
+
+updated_toml, replacements = version_pattern.subn(replace_version, toml_content, count=1)
+
+if replacements == 0:
+    print("Error: Could not find a version entry in typst.toml.")
+    sys.exit(1)
 
 # Write the updated TOML content to a file
-with open(file_path, "w") as file:
-    toml.dump(parsed_toml, file)
+file_path.write_text(updated_toml, encoding="utf-8")
 
 print(f"Updated TOML file saved to {file_path}")
 
@@ -55,7 +50,7 @@ print(f"Updated TOML file saved to {file_path}")
 new_year = datetime.now().year
 new_date = datetime.now().strftime("%Y-%m-%d")
 # Define the path to your .typ file
-typ_file_path = 'paper_template.typ'
+typ_file_path = Path('paper_template.typ')
 
 # Define the content to prepend, ensure no leading newline before the first comment line
 new_content_to_prepend = f"""///////////////////////////////
@@ -71,9 +66,14 @@ new_content_to_prepend = f"""///////////////////////////////
 
 """  # Ensuring only the intended newlines are included
 
-# Read the existing content of the file
-with open(typ_file_path, 'r', encoding='utf-8') as file:
-    original_content = file.read()
+try:
+    original_content = typ_file_path.read_text(encoding='utf-8')
+except FileNotFoundError:
+    print(f"Error: File not found at {typ_file_path}")
+    sys.exit(1)
+except Exception as exc:
+    print(f"An error occurred while reading the file: {exc}")
+    sys.exit(1)
 
 # Pattern to match the existing header, assuming it's always at the start of the file
 header_pattern = re.compile(r'^\/\/+[\s\S]*?\/\/+\n\n', re.MULTILINE)
@@ -85,44 +85,48 @@ else:
     # If no header is found, prepend new header without adding an extra newline at the beginning
     updated_content = new_content_to_prepend.rstrip('\n') + original_content
 
-# Write the updated content back to the file
-with open(typ_file_path, 'w', encoding='utf-8') as file:
-    file.write(updated_content)
+try:
+    typ_file_path.write_text(updated_content, encoding='utf-8')
+except Exception as exc:
+    print(f"An error occurred while writing to the file: {exc}")
+    sys.exit(1)
 
 print("Template File has been updated with the new version and date.")
 
 # update the main.typ file
+def update_main(main_typ_file_path, new_version):
+    """Update the preview import in the paper template entrypoint."""
+    path = Path(main_typ_file_path)
+    new_import = f'#import "@preview/ssrn-scribe:{new_version}": *\n\n'
 
-# define the path to main.typ file
-main_typ_file_path = 'template/main.typ'
+    try:
+        original_content = path.read_text(encoding='utf-8')
+    except FileNotFoundError:
+        print(f"Error: File not found at {path}")
+        return
+    except Exception as exc:
+        print(f"An error occurred while reading the file: {exc}")
+        return
 
-# define the content to prepend
-new_content_to_prepend = f"""#import "@preview/ssrn-scribe:{new_version}": *
+    header_pattern = re.compile(
+        r'^#import\s+"@preview/ssrn-scribe:([^"]+)"\s*:\s*\*\s*\n',
+        re.MULTILINE
+    )
 
-"""  # Ensuring only the intended newlines are included
+    if header_pattern.search(original_content):
+        updated_content = header_pattern.sub(new_import, original_content, count=1)
+    else:
+        updated_content = new_import.rstrip('\n') + original_content
 
-# Read the existing content of the file
-with open(main_typ_file_path, 'r', encoding='utf-8') as file:
-    original_content = file.read()
-    
-# Pattern to match the existing header, assuming it's always at the start of the file
-header_pattern = re.compile(
-    r'^#import\s+"@preview/ssrn-scribe:([^"]+)"\s*:\s*\*\s*\n',
-    re.MULTILINE
-)
+    try:
+        path.write_text(updated_content, encoding='utf-8')
+    except Exception as exc:
+        print(f"An error occurred while writing to the file: {exc}")
+        return
 
-# Check if the existing header is present and replace it
-if header_pattern.search(original_content):
-    updated_content = header_pattern.sub(new_content_to_prepend, original_content, count=1)
-else:
-    # If no header is found, prepend new header without adding an extra newline at the beginning
-    updated_content = new_content_to_prepend.rstrip('\n') + original_content
-    
-# Write the updated content back to the file
-with open(main_typ_file_path, 'w', encoding='utf-8') as file:
-    file.write(updated_content)
-    
-print("Main.typ file has been updated with the new version.")
+    print(f"Main Typ File {path} has been updated with the new version.")
 
+
+update_main('template/main.typ', new_version)
 
 

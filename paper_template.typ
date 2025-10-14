@@ -5,7 +5,7 @@
 // Author:  Academic Template Collective
 // License: MIT
 // Version: 0.9.0
-// Date:    2025-02-10
+// Date:    2025-10-14
 // Email:   maintainers@example.invalid
 ///////////////////////////////
 
