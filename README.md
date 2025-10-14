@@ -56,6 +56,90 @@ In the template, you can modify the following parameters:
 | `acknowledgments` | none       | Yes      | The acknowledgment of the paper                                                                            |
 | `bibliography`    | none       | Yes      | The bibliography of the paper ``bibliography: bibliography("bib.bib", title: "References", style: "apa")`` |
 
+Additional layout controls (all optional):
+- `author_columns`, `author_alignment` *(both modes)*: enforce a fixed column count and per-column alignment for the author grid (defaults auto-detect reasonable settings).
+- `cover_title_size`, `cover_subtitle_size`, `cover_author_name_size` *(maketitle=true only)*: change the typography of the cover title block directly from the `paper.with` call.
+- `cover_spacing` *(maketitle=true only)*: main vertical spacing unit between stacked elements (title → subtitle → authors → meta).
+- `cover_author_gutter`, `cover_author_row_gap` *(maketitle=true only)*: adjust horizontal and vertical spacing between author blocks on the cover.
+- `cover_text_width`, `cover_line_leading`, `cover_paragraph_spacing` *(maketitle=true only)*: control the width, line height, and paragraph spacing of the abstract/keywords/JEL block.
+- `frontmatter_gap` *(both modes)*: extra spacing between abstract, keywords, and JEL sections.
+- `inline_title_size`, `inline_subtitle_size`, `inline_author_name_size` *(maketitle=false only)*: mirror the cover typography when the title stays on the first page.
+- `inline_author_gutter`, `inline_author_row_gap` *(maketitle=false only)*: tweak spacing for inline author lists.
+- `body_line_leading`, `body_paragraph_spacing`, `body_text_spacing` *(both modes)*: fine-tune the main text’s readability globally.
+
+Author notes and acknowledgments on the cover are rendered as left-aligned footnotes with consistent marker spacing.
+
+Full configuration example with inline comments:
+
+```typst
+#import "@preview/ssrn-scribe:0.9.0": *
+
+#show: paper.with(
+  // Core typography (applies to body in both modes)
+  font: "PT Serif",                 // main document font family
+  fontsize: 11pt,                   // main document font size
+  body_text_spacing: 106%,          // character width spacing in main text
+  body_line_leading: 1.32em,        // line height in the main text
+  body_paragraph_spacing: 0.7em,    // space between paragraphs in main text
+
+  // Title-page switch
+  maketitle: true,                  // true → dedicated cover page, false → inline title
+
+  // Metadata & title block
+  title: [Your Title Here],         // document title
+  subtitle: "Optional subtitle",    // optional subtitle
+  date: "February 2025",            // version/date line
+  acknowledgments: "Funding note.", // rendered as a footnote on the title
+
+  // Cover-page only styling (ignored when maketitle=false)
+  cover_title_size: 20pt,           // cover title font size
+  cover_subtitle_size: 13pt,        // cover subtitle font size
+  cover_spacing: 24pt,              // vertical space between cover sections
+  cover_text_width: 90%,            // width of abstract/keywords block on the cover
+  cover_line_leading: 1.32em,       // line height for cover/front matter paragraphs
+  cover_paragraph_spacing: 0.7em,   // spacing between cover paragraphs
+  cover_author_name_size: 14pt,     // author name size on the cover
+  cover_author_name_size: 14pt,     // author name size on the cover
+  cover_author_gutter: 24pt,        // horizontal gap between cover author columns
+  cover_author_row_gap: 16pt,       // vertical gap between cover author rows
+
+  // Inline-title styling (used only when maketitle=false)
+  inline_title_size: 18pt,          // inline title size
+  inline_subtitle_size: 12pt,       // inline subtitle size
+  inline_author_name_size: 12pt,    // inline author name size
+  inline_author_gutter: 18pt,       // horizontal gap between inline author columns
+  inline_author_row_gap: 12pt,      // vertical gap between inline author rows
+
+  // Author block layout (applies to both modes)
+  author_columns: 2,                // force two columns; omit to auto-detect
+  author_alignment: center,         // column alignment for author details
+  authors: (
+    (
+      name: "Author One",
+      affiliation: "Affiliation One",
+      email: "author.one@example.com",
+      note: "Contact author",
+    ),
+    (
+      name: "Author Two",
+      affiliation: "Affiliation Two",
+      email: "author.two@example.com",
+    ),
+  ),
+
+  // Front matter (rendered on cover or inline depending on maketitle)
+  abstract: [Summarize your contribution here.], // optional abstract content
+  keywords: [Keyword 1, Keyword 2, Keyword 3],   // keyword list
+  JEL: [G11, G12],                               // optional JEL codes
+  frontmatter_gap: 12pt,                         // gap between abstract/keywords/JEL
+
+  // bibliography: bibliography("bib.bib", title: "References", style: "apa"),
+)
+```
+
+When you attach `paper.with(...)` via `#show: paper.with(...)`, Typst passes the remaining document content (`doc`) automatically, so no additional argument is required at the end of the call.
+
+
 - `maketitle=false`:
 
 | Parameter        | Default    | Optional | Description                                                                                                |
@@ -80,7 +164,7 @@ In the template, you can modify the following parameters:
 ```
 
 ```typst
-#import "@preview/ssrn-scribe:0.6.0": *
+#import "@preview/ssrn-scribe:0.9.0": *
 
 #show: paper.with(
   font: "PT Serif", // "Times New Roman"
@@ -116,12 +200,12 @@ In the template, you can modify the following parameters:
 ### Example
 
 Here is a screenshot of the template:
-![Example](https://minioapi.pjx.ac.cn/img1/2024/03/63ce084e2a43bc2e7e31bd79315a0fb5.png)
+![Example](https://example.invalid/assets/2024/03/63ce084e2a43bc2e7e31bd79315a0fb5.png)
 
 ### Example-brief with `maketitle=true`
 
-![example-brief-true](https://minioapi.pjx.ac.cn/img1/2024/06/8d203bd7f2fbf20b39b33334f0ee4a36.png)
+![example-brief-true](https://example.invalid/assets/2024/06/8d203bd7f2fbf20b39b33334f0ee4a36.png)
 
 ### Example-brief with `maketitle=false`
 
-![example-brief-false](https://minioapi.pjx.ac.cn/img1/2024/06/83dd5821409031ce0a2c2a15e014cc60.png)
+![example-brief-false](https://example.invalid/assets/2024/06/83dd5821409031ce0a2c2a15e014cc60.png)
