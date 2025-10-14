@@ -1,17 +1,16 @@
-# 0.7.0
+# 0.9.0
 
-- to make the template more flexible, all integrated packages are removed from the `main.typ`. They have been saved in the `extra.typ` file.
-- Here is the list of removed packages:
+- Reworked the cover page layout with wider front matter, consistent spacing, and left-aligned footnotes.
+- Added layout controls for author grids and typography (`author_columns`, `author_alignment`, `cover_*`, `inline_*`, `body_*`, `frontmatter_gap`).
+- Tuned default line and paragraph spacing, including additional lead beneath level-one headings for better readability.
+
+# 0.8.0
+
+- Fix the `counter` without `context`
+- Update the following packages to the latest version
   - `ctheorems`
   - `rich-counters`
   - `mitex`
   - `cetz`
   - `tablex`
   - `tablem`
-
-They have been imported to the `main.typ` file by default. If you do not want to use them, you can comment out the import statement in the `main.typ` file.
-
-```typst
-#import "extra.typ": *
-#show: great-theorems-init
-```
