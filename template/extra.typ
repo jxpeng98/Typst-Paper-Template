@@ -86,7 +86,7 @@
 
 #let mathcounter = rich-counter(
   identifier: "mathblocks",
-  inherited_levels: 1
+  inherited-levels: 1
 )
 
 #let theorem = mathblock(
