@@ -11,7 +11,8 @@
 - Narrow the default front-matter measure and slightly open the manuscript
   leading so long abstracts and body pages read more comfortably.
 - Keep optional theorem, table, math-conversion, and diagram dependencies out of
-  the core template and document the Typst 0.15 compatibility boundary.
+  the core template, update the optional CeTZ integration to 0.5.2, and document
+  the Typst 0.15 compatibility boundary.
 - Replace public sample authors, affiliations, bibliography records, studies,
   data, and results with explicitly fictional material.
 - Expand the README with title-mode selection, a first-edit workflow,
