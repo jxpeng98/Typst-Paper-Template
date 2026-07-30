@@ -2,14 +2,15 @@
 
 #import "@preview/rich-counters:0.2.2": *
 
-#import "@preview/mitex:0.2.5": *
+// Optional LaTeX-style math conversion. `mitex:0.2.5` is not compatible with
+// Typst 0.15.0, so keep it disabled unless you pin a compatible Typst/package.
+// #import "@preview/mitex:0.2.5": *
 
 #import "@preview/cetz:0.4.2"
 
 #import "@preview/tablex:0.0.9": tablex, rowspanx, colspanx, hlinex
 
 #import "@preview/tablem:0.3.0": tablem
-
 
 #let _treemap(is-root: false, max-columns: 3, is-child-of-root: false, tree) = {
   if is-root {

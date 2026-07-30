@@ -1,211 +1,211 @@
-# Typst-Paper-Template
+# SSRN Scribe
 
-Following the official tutorial, I create a single-column paper template for general use. You can use it for papers published on SSRN etc.
+SSRN Scribe is a dependency-light Typst template for working papers, preprints,
+and general academic manuscripts. Its defaults follow the conventional SSRN
+working-paper pattern: a separate title page, centered author metadata, an
+abstract and keywords block, Times-style typography, numbered serif headings,
+grayscale output, and one-inch margins.
 
-## How to use
+## Preview
 
-### Use as a template package
+### Separate title page
 
-Typst integrated the template with their official package manager. You can use it as the other third-party packages.
+[![Working-paper title page](screenshots/paper-title.png)](screenshots/paper-title.png)
 
-You only need to enter the following command in the terminal to initialize the template.
+### Manuscript body
+
+[![Working-paper body](screenshots/paper-body.png)](screenshots/paper-body.png)
+
+### Compact inline-title variant
+
+[![Inline-title working paper](screenshots/paper-brief.png)](screenshots/paper-brief.png)
+
+## Quick start
+
+Create a project from Typst Universe:
 
 ```bash
-typst init @preview/ssrn-scribe
+typst init @preview/ssrn-scribe:0.10.0
+cd ssrn-scribe
+typst compile main.typ
 ```
 
-It will generate a subfolder `ssrn-scribe` including the `main.typ` and `extra.typ` files in the current directory with the latest version of the template.
+The generated project contains:
 
-#### Warning
+```text
+ssrn-scribe/
+├── main.typ   # minimal paper starter
+└── extra.typ  # optional theorem, table, and diagram helpers
+```
 
-Before version `0.6.0`, this template has integrated with some other packages for a wide range of use. However, to make the template more flexible, all integrated packages are removed.
+The core `paper` template has no helper-package dependency. `extra.typ` is only
+loaded when you import it explicitly.
 
-**All the integrated packages have been saved in the `extra.typ` file and they have been imported to the `main.typ` file.**
+## Minimal example
 
-If you do not want to use them, you can comment out the import statement in the `main.typ` file.
+```typst
+#import "@preview/ssrn-scribe:0.10.0": paper
+
+#show: paper.with(
+  meta: (
+    title: [Your Paper Title],
+    authors: (
+      (name: "Your Name", affiliation: "Your Institution"),
+    ),
+    abstract: [State the question, method, main result, and contribution.],
+    keywords: [Keyword one, Keyword two],
+  ),
+  layout: (
+    maketitle: true,
+    preset: "default",
+  ),
+)
+
+= Introduction
+Your paper starts here.
+```
+
+Typst passes the remaining document body to `paper.with(...)` automatically.
+
+## Configuration model
+
+Settings are grouped by purpose so the starter stays memorable:
+
+| Group | Use it for |
+| --- | --- |
+| `meta` | Title, subtitle, authors, date, abstract, keywords, JEL codes, acknowledgments, and bibliography |
+| `theme` | Fonts, semantic colors, and type sizes |
+| `layout` | Title-page mode, margins, author grid, text measure, and spacing |
+
+### Author fields
+
+Each author accepts `name` and optional `department`, `affiliation`, `email`, and
+`note` fields. A `note` becomes a title-page footnote.
+
+### Bibliography
+
+Typst accepts BibLaTeX `.bib` files and Hayagriva `.yaml` files. Add the rendered
+bibliography to `meta`:
+
+```typst
+meta: (
+  bibliography: bibliography(
+    "references.bib",
+    title: "References",
+    style: "apa",
+  ),
+)
+```
+
+## Default working-paper design
+
+The defaults deliberately avoid a branded or editorial look. They are intended
+to resemble the broadly used economics, law, business, and social-science
+working papers commonly distributed through SSRN.
+
+| Role | Default |
+| --- | --- |
+| Body font | `Times New Roman`, 11pt; `Libertinus Serif` fallback |
+| Heading font | Same serif family, bold |
+| Main text and headings | `#111111` |
+| Muted metadata | `#444444` |
+| Links | Black, preserving grayscale output |
+| Rules | Neutral gray `#8a8a8a` |
+| Page margin | 2.54cm on all sides |
+| Body leading | `0.62em` at the default preset |
+| Paragraph spacing | `0.55em` at the default preset |
+| Word spacing | `100%` |
+
+`body-line-leading` is Typst paragraph leading, meaning the extra space between
+lines rather than a CSS-style total line height.
+
+Semantic theme values can be overridden together:
+
+```typst
+theme: (
+  font: ("Times New Roman", "Libertinus Serif"),
+  heading-font: ("Times New Roman", "Libertinus Serif"),
+  body-size: 11pt,
+  text: rgb("#111111"),
+  heading: rgb("#111111"),
+  muted: rgb("#444444"),
+  accent: rgb("#111111"),
+  rule: rgb("#8a8a8a"),
+)
+```
+
+The main type-size overrides are `body-size`, `title-size`, `subtitle-size`, and
+`author-size`.
+
+## Layout options
+
+Common layout keys are:
+
+| Key | Purpose | Default |
+| --- | --- | --- |
+| `preset` | Coordinated rhythm: `"compact"`, `"default"`, or `"relaxed"` | `"default"` |
+| `maketitle` | Put front matter on a separate title page | `true` |
+| `margin` | Page margin | `(left: 2.54cm, right: 2.54cm, top: 2.54cm, bottom: 2.54cm)` |
+| `author-columns` | Override the automatic author grid | `none` |
+| `author-alignment` | Align each author block | `center` |
+| `cover-text-width` | Width of abstract and metadata on the title page | `86%` |
+| `body-line-leading` | Optional override for space between body lines | `0.62em` at the default preset |
+| `body-paragraph-spacing` | Optional override for space between body paragraphs | `0.55em` at the default preset |
+| `body-first-line-indent` | First-line paragraph indent | `0em` |
+| `body-text-spacing` | Word spacing | `100%` |
+
+For a wider review manuscript, select the relaxed preset without changing the
+visual identity:
+
+```typst
+layout: (
+  preset: "relaxed",
+)
+```
+
+`preset` is also accepted as a top-level argument, matching modernpro-cv and
+modernpro-coverletter. The older spellings `density: "balanced"` and
+`density: "spacious"` still resolve.
+
+Each preset coordinates title-page spacing, author rows, front matter, body
+leading, paragraph rhythm, and the space above and below all three heading
+levels. Additional advanced keys can override individual tokens such as
+`heading-1-after`, `cover-spacing`, inline-title sizes, author gutters, and
+front-matter gaps. See `example.typ` for a complete grouped setup.
+
+## Optional advanced helpers
+
+The generated `extra.typ` file provides theorem/proof blocks, equation helpers,
+`tablex` and `tablem`, and CeTZ diagram utilities. Enable it only in papers that
+need those features:
 
 ```typst
 #import "extra.typ": *
 #show: great-theorems-init
 ```
 
-### Mannully use
+The full [`example.typ`](example.typ) demonstrates theorem and table helpers.
+The smaller [`example-brief.typ`](example-brief.typ) uses only the core template.
 
-1. Download the template or clone the repository.
-2. generate your bibliography file using `.biblatex` and store the file in the same directory of the template.
-3. modify the `main.typ` file in the subfolder `/template` and compile it.
-   ***Note:* You should have `paper_template.typ`, `main.typ` and `extra.typ` in the same directory.**
+`mitex` remains commented out in `extra.typ` because compatibility depends on
+the Typst and package versions you select.
 
-In the template, you can modify the following parameters:
+## Legacy flat API
 
-`maketitle` is a boolean (**compulsory**). If `maketitle=true`, the template will generate a new page for the title. Otherwise, the title will be shown on the first page.
+Older documents can continue to pass flat arguments such as `title`, `authors`,
+`font`, `fontsize`, and `maketitle` directly to `paper`. New documents should use
+`meta`, `theme`, and `layout`.
 
-- `maketitle=true`:
+If grouped and flat values are mixed, grouped values win. This lets existing
+documents migrate one group at a time without changing their content.
 
-| Parameter           | Default    | Optional | Description                                                                                                |
-| ------------------- | ---------- | -------- | ---------------------------------------------------------------------------------------------------------- |
-| `font`            | "PT Serif" | Yes      | The font of the paper. You can choose "Times New Roman" or "Palatino"                                      |
-| `fontsize`        | 11pt       | Yes      | The font size of the paper. You can choose 10pt or 12pt                                                    |
-| `title`           | "Title"    | No       | The title of the paper                                                                                     |
-| `subtitle`        | none       | Yes      | The subtitle of the paper, use "" or []                                                                    |
-| `authors`         | none       | No       | The authors of the paper                                                                                   |
-| `date`            | none       | Yes      | The date of the paper                                                                                      |
-| `abstract`        | none       | Yes      | The abstract of the paper                                                                                  |
-| `keywords`        | none       | Yes      | The keywords of the paper                                                                                  |
-| `JEL`             | none       | Yes      | The JEL codes of the paper                                                                                 |
-| `acknowledgments` | none       | Yes      | The acknowledgment of the paper                                                                            |
-| `bibliography`    | none       | Yes      | The bibliography of the paper ``bibliography: bibliography("bib.bib", title: "References", style: "apa")`` |
+## Local development
 
-Additional layout controls (all optional):
+From this repository, compile both examples with:
 
-- `author-columns`, `author-alignment` *(both modes)*: enforce a fixed column count and per-column alignment for the author grid (defaults auto-detect reasonable settings).
-- `cover-title-size`, `cover-subtitle-size`, `cover-author-name-size` *(maketitle=true only)*: change the typography of the cover title block directly from the `paper.with` call.
-- `cover-spacing` *(maketitle=true only)*: main vertical spacing unit between stacked elements (title → subtitle → authors → meta).
-- `cover-author-gutter`, `cover-author-row-gap` *(maketitle=true only)*: adjust horizontal and vertical spacing between author blocks on the cover.
-- `cover-text-width`, `cover-line-leading`, `cover-paragraph-spacing` *(maketitle=true only)*: control the width, line height, and paragraph spacing of the abstract/keywords/JEL block.
-- `frontmatter-gap` *(both modes)*: extra spacing between abstract, keywords, and JEL sections.
-- `inline-title-size`, `inline-subtitle-size`, `inline-author-name-size` *(maketitle=false only)*: mirror the cover typography when the title stays on the first page.
-- `inline-author-gutter`, `inline-author-row-gap` *(maketitle=false only)*: tweak spacing for inline author lists.
-- `body-line-leading`, `body-paragraph-spacing`, `body-text-spacing` *(both modes)*: fine-tune the main text’s readability globally.
-
-Author notes and acknowledgments on the cover are rendered as left-aligned footnotes with consistent marker spacing.
-
-Full configuration example with inline comments:
-
-```typst
-#import "@preview/ssrn-scribe:0.9.1": *
-
-#show: paper.with(
-  // Core typography (applies to body in both modes)
-  font: "PT Serif",                 // main document font family
-  fontsize: 11pt,                   // main document font size
-  body-text-spacing: 106%,          // character width spacing in main text
-  body-line-leading: 1.32em,        // line height in the main text
-  body-paragraph-spacing: 0.7em,    // space between paragraphs in main text
-
-  // Title-page switch
-  maketitle: true,                  // true → dedicated cover page, false → inline title
-
-  // Metadata & title block
-  title: [Your Title Here],         // document title
-  subtitle: "Optional subtitle",    // optional subtitle
-  date: "February 2025",            // version/date line
-  acknowledgments: "Funding note.", // rendered as a footnote on the title
-
-  // Cover-page only styling (ignored when maketitle=false)
-  cover-title-size: 20pt,           // cover title font size
-  cover-subtitle-size: 13pt,        // cover subtitle font size
-  cover-spacing: 24pt,              // vertical space between cover sections
-  cover-text-width: 90%,            // width of abstract/keywords block on the cover
-  cover-line-leading: 1.32em,       // line height for cover/front matter paragraphs
-  cover-paragraph-spacing: 0.7em,   // spacing between cover paragraphs
-  cover-author-name-size: 14pt,     // author name size on the cover
-  cover-author-gutter: 24pt,        // horizontal gap between cover author columns
-  cover-author-row-gap: 16pt,       // vertical gap between cover author rows
-
-  // Inline-title styling (used only when maketitle=false)
-  inline-title-size: 18pt,          // inline title size
-  inline-subtitle-size: 12pt,       // inline subtitle size
-  inline-author-name-size: 12pt,    // inline author name size
-  inline-author-gutter: 18pt,       // horizontal gap between inline author columns
-  inline-author-row-gap: 12pt,      // vertical gap between inline author rows
-
-  // Author block layout (applies to both modes)
-  author-columns: 2,                // force two columns; omit to auto-detect
-  author-alignment: center,         // column alignment for author details
-  authors: (
-    (
-      name: "Author One",
-      affiliation: "Affiliation One",
-      email: "author.one@example.com",
-      note: "Contact author",
-    ),
-    (
-      name: "Author Two",
-      affiliation: "Affiliation Two",
-      email: "author.two@example.com",
-    ),
-  ),
-
-  // Front matter (rendered on cover or inline depending on maketitle)
-  abstract: [Summarize your contribution here.], // optional abstract content
-  keywords: [Keyword 1, Keyword 2, Keyword 3],   // keyword list
-  JEL: [G11, G12],                               // optional JEL codes
-  frontmatter-gap: 12pt,                         // gap between abstract/keywords/JEL
-
-  // bibliography: bibliography("bib.bib", title: "References", style: "apa"),
-)
+```bash
+typst compile example-brief.typ
+typst compile example.typ
 ```
 
-When you attach `paper.with(...)` via `#show: paper.with(...)`, Typst passes the remaining document content (`doc`) automatically, so no additional argument is required at the end of the call.
-
-
-- `maketitle=false`:
-
-| Parameter        | Default    | Optional | Description                                                                                                |
-| ---------------- | ---------- | -------- | ---------------------------------------------------------------------------------------------------------- |
-| `font`         | "PT Serif" | Yes      | The font of the paper. You can choose "Times New Roman" or "Palatino"                                      |
-| `fontsize`     | 11pt       | Yes      | The font size of the paper. You can choose 10pt or 12pt                                                    |
-| `title`        | "Title"    | No       | The title of the paper                                                                                     |
-| `subtitle`     | none       | Yes      | The subtitle of the paper, use "" or []                                                                    |
-| `authors`      | none       | No       | The authors of the paper                                                                                   |
-| `date`         | none       | Yes      | The date of the paper                                                                                      |
-| `bibliography` | none       | Yes      | The bibliography of the paper ``bibliography: bibliography("bib.bib", title: "References", style: "apa")`` |
-
-**Note: You need to keep the comma at the end of the first bracket of the author's list, even if you have only one author.**
-
-```typst
-    (
-    name: "",
-    affiliation: "", // optional
-    email: "", // optional
-    note: "", // optional
-    ),
-```
-
-```typst
-#import "@preview/ssrn-scribe:0.9.1": *
-
-#show: paper.with(
-  font: "PT Serif", // "Times New Roman"
-  fontsize: 12pt, // 12pt
-  maketitle: true, // whether to add new page for title
-  title: [#lorem(5)], // title 
-  subtitle: "A work in progress", // subtitle
-  authors: (
-    (
-      name: "Theresa Tungsten",
-      affiliation: "Artos Institute",
-      email: "tung@artos.edu",
-      note: "123",
-    ),
-  ),
-  date: "July 2023",
-  abstract: lorem(80), // replace lorem(80) with [ Your abstract here. ]
-  keywords: [
-    Imputation,
-    Multiple Imputation,
-    Bayesian,],
-  JEL: [G11, G12],
-  acknowledgments: "This paper is a work in progress. Please do not cite without permission.", 
-  // bibliography: bibliography("bib.bib", title: "References", style: "apa"),
-)
-= Introduction
-#lorem(50)
-
-```
-
-## Preview
-
-### Example
-
-Here is a screenshot of the template:
-![Example](https://example.invalid/assets/2024/03/63ce084e2a43bc2e7e31bd79315a0fb5.png)
-
-### Example-brief with `maketitle=true`
-
-![example-brief-true](https://example.invalid/assets/2024/06/8d203bd7f2fbf20b39b33334f0ee4a36.png)
-
-### Example-brief with `maketitle=false`
-
-![example-brief-false](https://example.invalid/assets/2024/06/83dd5821409031ce0a2c2a15e014cc60.png)
+All people, institutions, studies, and results in the examples are fictional.

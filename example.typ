@@ -1,200 +1,131 @@
-// #import "@local/ssrn-scribe:0.4.8": paper
-// #import "@local/ssrn-scribe:0.6.0": *
-
 #import "paper_template.typ": paper
-#import "paper_template.typ": *
-
-// if you do not want to use the integrated packages, you can comment out the following lines
 #import "extra.typ": *
+
 #show: great-theorems-init
 
-#show: doc => paper(
-  font: "PT Serif", // "Times New Roman"
-  fontsize: 12pt, // 12pt
-  maketitle: true, // whether to add new page for title
-  title: [#lorem(5)], // title 
-  subtitle: "A work in progress", // subtitle
-  authors: (
-    (
-      name: "Theresa Tungsten",
+#show: paper.with(
+  meta: (
+    title: [Queue-aware Scheduling for Shared Research Equipment],
+    subtitle: [A simulation study of batching and changeover costs],
+    authors: (
+      (
+        name: "Leila Morgan",
+        department: "Department of Operations Research",
+        affiliation: "Westbridge Institute of Technology",
+        email: "leila.morgan@example.edu",
+        note: "Corresponding author. This paper, its authors, institutions, and results are fictional.",
+      ),
+      (
+        name: "Noah Adeyemi",
+        department: "Research Infrastructure Unit",
+        affiliation: "Westbridge Institute of Technology",
+        email: "noah.adeyemi@example.edu",
+      ),
     ),
-    (
-      name: "John Doe",
-      affiliation: "University of Nowhere",
-      email: "jd@Nowhere.edu",
-      note: "456",
-    )
+    date: "June 2026",
+    abstract: [
+      Shared laboratories often schedule instruments in arrival order even when
+      switching between sample families requires substantial setup time. We
+      compare first-come-first-served scheduling with a queue-aware batching
+      rule in a fictional discrete-event simulation. Under moderate demand,
+      batching lowers the share of time spent on changeovers while preserving
+      predictable waiting times. The example also demonstrates optional theorem
+      and table helpers without adding them to the core template.
+    ],
+    keywords: [shared facilities, scheduling, batching, discrete-event simulation],
+    JEL: [C61, C63],
+    acknowledgments: [
+      This demonstration uses invented data and does not describe a real
+      institution or experiment.
+    ],
   ),
-  date: "July 2023",
-  abstract: lorem(80), // replace lorem(80) with [ Your abstract here. ]
-  keywords: [
-    Imputation,
-    Multiple Imputation,
-    Bayesian,],
-  JEL: [G11, G12],
-  acknowledgments: "This paper is a work in progress. Please do not cite without permission.", 
-  bibliography: bibliography("bib.bib", title: "References", style: "apa"),
-  doc
+  theme: (
+    font: ("Times New Roman", "Libertinus Serif"),
+    heading-font: ("Times New Roman", "Libertinus Serif"),
+    body-size: 11pt,
+    text: rgb("#111111"),
+    heading: rgb("#111111"),
+    muted: rgb("#444444"),
+    accent: rgb("#111111"),
+    rule: rgb("#8a8a8a"),
+  ),
+  layout: (
+    maketitle: true,
+    density: "balanced",
+    margin: (left: 2.54cm, right: 2.54cm, top: 2.54cm, bottom: 2.54cm),
+    author-columns: 2,
+    cover-text-width: 90%,
+  ),
 )
 
+= Introduction
 
-// your main text goes here
+Universities increasingly operate microscopes, spectrometers, and fabrication
+tools as shared facilities. A simple arrival-order queue is transparent, but it
+can trigger repeated changeovers between sample families. When setup consumes a
+large share of instrument time, a small amount of batching may improve access
+for the whole user community.
 
-= Introduction <intro>
-@intro
-check
-#lorem(300)
+This study compares two scheduling policies in a stylized facility. The first
+serves jobs in arrival order. The second may hold a job briefly when another job
+from the current sample family is already waiting. The design goal is not to
+eliminate waiting, but to reduce avoidable setup while keeping delays bounded.
 
+= Scheduling model
 
-== Motivation
+Let $s > 0$ denote the fixed setup time required when consecutive jobs belong to
+different sample families. Jobs within a family have identical processing time,
+and all jobs are available before the schedule begins.
 
-#lorem(140)
-
-= Data
-@abarbanell1998abnormal
-
-@abarbanell1998abnormal11
-
-// #cite(<abarbanell1998abnormal11>,<barbanell1998abnormal>)
-#lorem(100)
-
-= Conclusion
-
-#lorem(100)
-
-= Theorem
-
-#remark[
-  A natural number is called a #highlight[_prime number_] if it is greater
-  than 1 and cannot be written as the product of two smaller natural numbers.
-]
-
-#lemma[
-  The numbers $2$, $3$, and $17$ are prime.
-  @cor_largest_prime shows that this list is not exhaustive!
-]
-
-#theorem(title: "Euclid")[
-  There are infinitely many primes.
+#theorem(title: "Single-family batching")[
+  For a fixed set of available jobs, processing each sample family in one
+  contiguous batch weakly reduces total setup time relative to any schedule
+  that returns to a previously processed family.
 ]
 
 #proof[
-  Suppose to the contrary that $p_1, p_2, dots, p_n$ is a finite enumeration
-  of all primes. Set $P = p_1 p_2 dots p_n$. Since $P + 1$ is not in our list,
-  it cannot be prime. Thus, some prime factor $p_j$ divides $P + 1$.  Since
-  $p_j$ also divides $P$, it must divide the difference $(P + 1) - P = 1$, a
-  contradiction.
+  Every return to a previously processed family creates at least one additional
+  family transition. Merging that family's separated blocks removes a transition
+  and does not change the number or duration of jobs. Repeating this operation
+  produces one block per family with no greater total setup time.
 ]
 
-#remark[
-  There is no largest prime number.
-] <cor_largest_prime>
+The proposition motivates batching, but it does not by itself protect individual
+users from long delays. Our queue-aware policy therefore imposes a maximum hold
+time before the oldest waiting job must be served.
 
-#remark[
-  There are infinitely many composite numbers.
+= Simulation design
+
+The fictional simulation covers a thirty-day operating period with eight-hour
+days. Arrivals follow the same demand trace under each policy. We vary only the
+scheduling rule and summarize one hundred replications.
+
+#align(center)[
+  #tablex(
+    columns: 4,
+    align: center + horizon,
+    auto-vlines: false,
+    hlinex(y: 0),
+    [*Policy*], [*Median wait*], [*Setup share*], [*Utilization*],
+    hlinex(y: 1),
+    [Arrival order], [46 min], [18%], [71%],
+    [Queue-aware batch], [51 min], [11%], [77%],
+    [Long batch], [73 min], [8%], [79%],
+    hlinex(),
+  )
 ]
 
+= Results
 
-= Test
+The queue-aware rule reduces the simulated setup share by seven percentage
+points and increases utilization by six points. Median waiting time rises by
+five minutes, while the ninety-fifth percentile remains below the configured
+hold-time limit. The long-batch policy saves more setup time but produces a much
+larger delay, illustrating why utilization alone is an incomplete objective.
 
-we are the best in the world. 
+= Discussion
 
-#lemma[
-  The number $1$ is not prime.
-]
-
-
-this is a test.
-Equation without number:
-#eq(
-  $
-  x
-  $
-)
----
-
-
-#mitex(`
-  \begin{align*}
-    \frac{1}{2} + \frac{1}{3} &= \frac{5}{6} \\
-    \frac{1}{2} + \frac{1}{3} &= \frac{5}{6} \\
-  \end{align*}
-`)
-
-
-#tablex(
-  columns: 4,
-  align: center + horizon,
-  auto-vlines: false,
-
-  // indicate the first two rows are the header
-  // (in case we need to eventually
-  // enable repeating the header across pages)
-  header-rows: 2,
-
-  // color the last column's cells
-  // based on the written number
-  map-cells: cell => {
-    if cell.x == 3 and cell.y > 1 {
-      cell.content = {
-        let value = int(cell.content.text)
-        let text-color = if value < 10 {
-          red.lighten(30%)
-        } else if value < 15 {
-          yellow.darken(13%)
-        } else {
-          green
-        }
-        set text(text-color)
-        strong(cell.content)
-      }
-    }
-    cell
-  },
-
-  /* --- header --- */
-  rowspanx(2)[*Username*], colspanx(2)[*Data*], (), rowspanx(2)[*Score*],
-  (),                 [*Location*], [*Height*], (),
-  /* -------------- */
-
-  [John], [Second St.], [180 cm], [5],
-  [Wally], [Third Av.], [160 cm], [10],
-  [Jason], [Some St.], [150 cm], [15],
-  [Robert], [123 Av.], [190 cm], [20],
-  [Other], [Unknown St.], [170 cm], [25],
-)
-
-
-#tablem[
-  | *Name* | *Location* | *Height* | *Score* |
-  | ------ | ---------- | -------- | ------- |
-  | John   | Second St. | 180 cm   |  5      |
-  | Wally  | Third Av.  | 160 cm   |  10     |
-]
-
-#let three-line-table = tablem.with(
-  render: (columns: auto, ..args) => {
-    tablex(
-      columns: columns,
-      auto-lines: false,
-      align: center + horizon,
-      hlinex(y: 0),
-      hlinex(y: 1),
-      ..args,
-      hlinex(),
-    )
-  }
-)
-
-#three-line-table[
-  | *Name* | *Location* | *Height* | *Score* |
-  | ------ | ---------- | -------- | ------- |
-  | John   | Second St. | 180 cm   |  5      |
-  | Wally  | Third Av.  | 160 cm   |  10     |
-]
-
-
-
-#cetz.canvas({
-let data = ([\*], ([A A], [A.A], [A.B], [A.c]), ([B], [B.A]))
-cetz.tree.tree(data,direction: "right")})
+The results are illustrative, not empirical. Real facilities face cancellations,
+priority projects, heterogeneous processing times, and maintenance windows. A
+practical evaluation should preregister service-level outcomes, report effects
+by user group, and test the policy prospectively before deployment.

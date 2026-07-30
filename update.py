@@ -129,4 +129,3 @@ def update_main(main_typ_file_path, new_version):
 
 update_main('template/main.typ', new_version)
 
-
