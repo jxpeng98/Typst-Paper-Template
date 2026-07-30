@@ -1,11 +1,11 @@
 ///////////////////////////////
 // This Typst template is for working paper draft.
 // It is based on the general SSRN paper.
-// Copyright (c) 2025
+// Copyright (c) 2026
 // Author:  Academic Template Collective
 // License: MIT
 // Version: 0.10.0
-// Date:    2026-07-27
+// Date:    2026-07-30
 // Email:   maintainers@example.invalid
 ///////////////////////////////
 

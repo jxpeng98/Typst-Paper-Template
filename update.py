@@ -54,8 +54,7 @@ typ_file_path = Path('paper_template.typ')
 
 # Define the content to prepend, ensure no leading newline before the first comment line
 new_content_to_prepend = f"""///////////////////////////////
-// This Typst template is for working paper draft.
-// It is based on the general SSRN paper.
+// A clean academic working-paper and preprint template.
 // Copyright (c) {new_year}
 // Author:  Academic Template Collective
 // License: MIT
@@ -128,4 +127,3 @@ def update_main(main_typ_file_path, new_version):
 
 
 update_main('template/main.typ', new_version)
-
