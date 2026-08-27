@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.1] - 2026-08-27
+
+- Reset body-footnote numbering after title-page author notes so the first
+  manuscript footnote starts at 1.
+- Fixed the release updater to preserve the template's narrow `paper` import
+  and update README package-version references.
+
 ## [0.10.0] - 2026-07-30
 
 - Introduce grouped `meta`, `theme`, and `layout` dictionaries while preserving

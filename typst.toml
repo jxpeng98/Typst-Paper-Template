@@ -1,6 +1,6 @@
 [package]
 name = "ssrn-scribe"
-version = "0.10.0"
+version = "0.10.1"
 entrypoint = "paper_template.typ"
 authors = [ "Academic Template Collective",]
 license = "MIT"

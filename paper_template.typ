@@ -1,11 +1,10 @@
 ///////////////////////////////
-// This Typst template is for working paper draft.
-// It is based on the general SSRN paper.
+// A clean academic working-paper and preprint template.
 // Copyright (c) 2026
 // Author:  Academic Template Collective
 // License: MIT
-// Version: 0.10.0
-// Date:    2026-07-30
+// Version: 0.10.1
+// Date:    2026-08-27
 // Email:   maintainers@example.invalid
 ///////////////////////////////
 
@@ -542,6 +541,7 @@
     render-title-block(cfg, mode: "inline")
   }
 
+  counter(footnote).update(0)
   set footnote(numbering: "1")
   set footnote.entry(separator: line(length: 100%, stroke: 0.4pt + cfg.rule))
   set footnote.entry(indent: 0em, gap: 0.6em)

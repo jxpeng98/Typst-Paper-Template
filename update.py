@@ -96,7 +96,7 @@ print("Template File has been updated with the new version and date.")
 def update_main(main_typ_file_path, new_version):
     """Update the preview import in the paper template entrypoint."""
     path = Path(main_typ_file_path)
-    new_import = f'#import "@preview/ssrn-scribe:{new_version}": *\n\n'
+    new_import = f'#import "@preview/ssrn-scribe:{new_version}": paper\n'
 
     try:
         original_content = path.read_text(encoding='utf-8')
@@ -108,14 +108,14 @@ def update_main(main_typ_file_path, new_version):
         return
 
     header_pattern = re.compile(
-        r'^#import\s+"@preview/ssrn-scribe:([^"]+)"\s*:\s*\*\s*\n',
+        r'^#import[ \t]+"@preview/ssrn-scribe:([^"]+)"[ \t]*:[ \t]*paper[ \t]*\r?\n',
         re.MULTILINE
     )
 
     if header_pattern.search(original_content):
         updated_content = header_pattern.sub(new_import, original_content, count=1)
     else:
-        updated_content = new_import.rstrip('\n') + original_content
+        updated_content = new_import + '\n' + original_content
 
     try:
         path.write_text(updated_content, encoding='utf-8')
@@ -127,3 +127,15 @@ def update_main(main_typ_file_path, new_version):
 
 
 update_main('template/main.typ', new_version)
+
+readme_path = Path('README.md')
+readme_content = readme_path.read_text(encoding='utf-8')
+updated_readme, replacements = re.subn(
+    r'(@preview/ssrn-scribe:)[^\s"]+',
+    rf'\g<1>{new_version}',
+    readme_content,
+)
+if replacements == 0:
+    raise RuntimeError(f'No ssrn-scribe version references found in {readme_path}')
+readme_path.write_text(updated_readme, encoding='utf-8')
+print(f'Updated {replacements} version reference(s) in {readme_path}.')

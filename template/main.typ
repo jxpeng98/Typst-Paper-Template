@@ -1,4 +1,4 @@
-#import "@preview/ssrn-scribe:0.10.0": paper
+#import "@preview/ssrn-scribe:0.10.1": paper
 
 #show: paper.with(
   meta: (

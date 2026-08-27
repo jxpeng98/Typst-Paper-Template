@@ -38,7 +38,7 @@ numbering remain consistent.
 Create a project from Typst Universe:
 
 ```bash
-typst init @preview/ssrn-scribe:0.10.0
+typst init @preview/ssrn-scribe:0.10.1
 cd ssrn-scribe
 typst compile main.typ
 ```
@@ -73,7 +73,7 @@ typst watch main.typ
 ## Minimal example
 
 ```typst
-#import "@preview/ssrn-scribe:0.10.0": paper
+#import "@preview/ssrn-scribe:0.10.1": paper
 
 #show: paper.with(
   meta: (
